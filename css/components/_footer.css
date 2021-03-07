@@ -1,0 +1,13 @@
+.footer {
+    height: 15vh;
+    background-image: url(../../img/footer.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  
+}
+
+.footer__container {
+    justify-content: space-between;
+    align-items:center;
+}
