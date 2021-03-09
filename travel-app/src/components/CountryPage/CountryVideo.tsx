@@ -1,11 +1,9 @@
 import React from 'react';
 
-const CountryVideo:React.FC = () => {
-    return (
-        <div>
-            CountryVideo
-        </div>
-    );
-};
+const CountryVideo:React.FC = () => (
+  <div>
+    CountryVideo
+  </div>
+);
 
 export default CountryVideo;

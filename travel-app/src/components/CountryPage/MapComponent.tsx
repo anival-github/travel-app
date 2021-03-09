@@ -1,11 +1,9 @@
 import React from 'react';
 
-const MapComponent:React.FC = () => {
-    return (
-        <div>
-            MapComponent    
-        </div>
-    );
-};
+const MapComponent:React.FC = () => (
+  <div>
+    MapComponent
+  </div>
+);
 
 export default MapComponent;

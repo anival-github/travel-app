@@ -1,11 +1,9 @@
 import React from 'react';
 
-const TimeWidget:React.FC = () => {
-    return (
-        <div>
-            TimeWidget
-        </div>
-    );
-};
+const TimeWidget:React.FC = () => (
+  <div>
+    TimeWidget
+  </div>
+);
 
 export default TimeWidget;
