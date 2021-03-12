@@ -6,14 +6,16 @@ import Photos from './Photos';
 import { Currencies, TimeWidget, WeatherWidget } from './vidgets';
 
 const CountryPage:React.FC = () => (
-  <div>
+  <div className="country-page-wrapper">
+    <div className="widgets-wrapper">
+      <Currencies />
+      <WeatherWidget />
+      <TimeWidget />
+    </div>
     <MainInfo />
     <Photos />
     <CountryVideo />
-    <MapComponent />
-    <Currencies />
-    <WeatherWidget />
-    <TimeWidget />
+    <MapComponent coordinates={[53.90899450883923, 27.549398216118476]} countryAbr="BLR" />
   </div>
 );
 
