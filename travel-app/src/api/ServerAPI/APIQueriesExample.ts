@@ -39,7 +39,7 @@ export default function runQueries() {
     ReviewsAPI.deleteReviewById('604d3d93406b8f1fb88fb9ca', token).then((res) => logQueryResult('deleteReviewById("604d3d93406b8f1fb88fb9ca", token)', res));
 
     const reviewUpdateOptions: UpdateReview = {
-      reviewId: '604e324dbfe11057cc6b17b0',
+      reviewId: '604e61239dbcdb49fcc5681b',
       updateFields: {
         rating: Math.random() * 10,
         reviewText: `пример измененного отзыва# ${Math.random() * 100}`,
