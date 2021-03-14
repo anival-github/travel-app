@@ -4,6 +4,9 @@ import CountryPage from './components/CountryPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
+import APIqueriesExample from './api/ServerAPI/APIQueriesExample';
+
+APIqueriesExample();// функция для демонстрации работы Server API функций.
 
 const App:React.FC = () => (
   <div>
