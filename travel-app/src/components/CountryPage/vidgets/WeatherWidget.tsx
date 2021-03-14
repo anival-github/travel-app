@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const WeatherWidget: React.FC = () => {
+  const [weatherData, setWeatherData] = useState<any>(null);
   const city = 'Minsk';
-  let weatherData;
 
   useEffect(() => {
     ((async () => {
       const weatherAPIurl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=en&appid=f1fe9aa9627ddefce0cda42a7d10e141&units=metric`;
+
       const res = await fetch(weatherAPIurl);
-      weatherData = await res.json();
+      const data = await res.json();
+      setWeatherData(data);
     })());
   }, [city]);
 
@@ -16,21 +18,21 @@ const WeatherWidget: React.FC = () => {
 
   return (
     <div className="weather">
-      {/* <i className={`weather-icon owf owf-${data.weather[0].id}}`} /> */}
+      <i className={`weather-icon owf ${weatherData && `owf-${weatherData.weather[0].id}`}`} />
       <div className="temperature">
-        {/* {data.main.temp} */}
+        { weatherData && weatherData.main.temp}
         °C
       </div>
       <div className="weather-description">
-        {/* {data.weather[0].description} */}
+        {weatherData && weatherData.weather[0].description}
       </div>
       <div className="humidity">
         Humidity:
-        {/* {data.main.humidity} */}
+        {weatherData && weatherData.main.humidity}
       </div>
       <div className="wind">
         Wind:
-        {/* {data.wind.speed} */}
+        {weatherData && weatherData.wind.speed}
         m/s
       </div>
       <div className="city" contentEditable="true" />
