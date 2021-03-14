@@ -1,11 +1,14 @@
+/* eslint-disable import/no-cycle */
 import {
   applyMiddleware, combineReducers, createStore, compose,
 } from 'redux';
 import thunkMiddleWare from 'redux-thunk';
 import appReducer from './app-reducer';
+import widgetsReducer from './widgets-reducer';
 
 export const rootReducer = combineReducers({
   app: appReducer,
+  widgets: widgetsReducer,
 });
 
 type RootReducerType = typeof rootReducer;

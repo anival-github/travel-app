@@ -6,6 +6,9 @@ module.exports = {
     "sourceType": "module"
   },
   "rules":{
-    "linebreak-style": ["off"]
+    "linebreak-style": ["off"],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["off"],
+    "import/no-cycle": "off",
   }
 }
