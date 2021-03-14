@@ -26,7 +26,7 @@ export default function runQueries() {
   authorizeViaLogin(testUserCredintials).then((authorizationResult: AuthorizationResult) => {
     logQueryResult('authorizeViaLogin()', authorizationResult);
     const newReview:Review = {
-      placeId: '604d38a7bedd6044c481b2d5',
+      placeId: '604d396dbedd6044c481b2d6',
       userLogin: authorizationResult.user?.login || '',
       rating: 6,
       reviewText: `пример отзыва# ${Math.random() * 100}`,
@@ -34,7 +34,7 @@ export default function runQueries() {
     const token = authorizationResult.token || '2f5823fd9cb459b75afc6508046fad76';
 
     ReviewsAPI.insertReview(newReview, token).then((res) => logQueryResult('insertReview(newReview, token)', res));
-    ReviewsAPI.getAllReviews().then((res) => logQueryResult('getAllReviews()', res));
+    ReviewsAPI.getAllReviewsByPlaceId('604d396dbedd6044c481b2d6').then((res) => logQueryResult('getAllReviewsByPlaceId()', res));
     // первым параметромнадо указа ть_id удаляемого review. В примере отзыв по id уже удален
     ReviewsAPI.deleteReviewById('604d3d93406b8f1fb88fb9ca', token).then((res) => logQueryResult('deleteReviewById("604d3d93406b8f1fb88fb9ca", token)', res));
 

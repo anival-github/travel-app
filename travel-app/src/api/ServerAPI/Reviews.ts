@@ -26,9 +26,9 @@ async function insertReview(
   return result;
 }
 
-async function getAllReviews():Promise<Review[]> {
+async function getAllReviewsByPlaceId(placeid: string):Promise<Review[]> {
   let arrOfReviews: Review[] = [];
-  const response: Response = await fetch(`${SERVER_PATH}${REVIEWS_PATH}/getall`);
+  const response: Response = await fetch(`${SERVER_PATH}${REVIEWS_PATH}/getallbyplaceid/${placeid}`);
   if (response.status === 200) {
     arrOfReviews = await response.json();
   }
@@ -71,5 +71,5 @@ async function updateReviewById({
   return result;
 }
 export {
-  insertReview, getAllReviews, deleteReviewById, updateReviewById,
+  insertReview, getAllReviewsByPlaceId, deleteReviewById, updateReviewById,
 };
