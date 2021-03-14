@@ -1,0 +1,11 @@
+{
+  "extends": ["airbnb-typescript"],
+  "parserOptions": {
+    "project": "tsconfig.eslint.json",
+    // "tsconfigRootDir": "travel-app",
+    // "sourceType": "module"
+  },
+  "rules":{
+    "linebreak-style": ["off"]
+  }
+}
