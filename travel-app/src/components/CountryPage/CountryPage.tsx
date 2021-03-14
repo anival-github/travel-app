@@ -3,7 +3,7 @@ import CountryVideo from './CountryVideo';
 import MainInfo from './MainInfo';
 import MapComponent from './MapComponent';
 import Photos from './Photos';
-import { Currencies, TimeWidget, WeatherWidget } from './vidgets';
+import WidgetsContainer from './vidgets/WidgetsContainer';
 
 const imgUrls = [
   'http://photoeverywhere.co.uk/west/usa/san_francisco/sunset_sf_skyline6005.jpg',
@@ -15,11 +15,7 @@ const imgUrls = [
 
 const CountryPage:React.FC = () => (
   <div className="country-page-wrapper">
-    <div className="widgets-wrapper">
-      <Currencies />
-      <WeatherWidget />
-      <TimeWidget />
-    </div>
+    <WidgetsContainer />
     <MainInfo />
     <Photos imgUrls={imgUrls} />
     <div className="map-vs-video-container">
