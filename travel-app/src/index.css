@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  background-color: rgb(188, 255, 255);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +11,127 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.country-page-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.widgets-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.map-container {
+  margin: 25px;
+  width: 320px;
+  height: 300px;
+}
+
+.country-video {
+  margin: 25px;
+}
+
+.map-vs-video-container {
+  width: 90vw;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.photos-wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 600px;
+  height: 400px;
+} 
+
+.photo-gallery {
+  height: 200px;
+} 
+
+.slide {
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-rating {
+  font-size: 20px;
+}
+
+.item-thumb {
+  width: 60px;
+  height: 60px;
+  background: no-repeat center center;
+  opacity: 0.75;
+}
+
+.main-photos {
+  width: 550px;
+  height: 330px;
+}
+
+.thumbs-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiper-slide-thumb-active > .item-thumb {
+  box-sizing: border-box;
+  opacity: 1;
+  border:springgreen solid 2px
+}
+
+.thumbs-photo > .swiper-wrapper > .swiper-slide {
+  width: 60px;
+}
+
+.full-screen-slider {
+  position: absolute;
+  display: none;
+  color: #fff;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.visible {
+  display: flex;
+}
+
+.main-photos-full {
+  width: 90%;
+  height: 90%;
+}
+
+.fullscreen-photo {
+  height: 80vh;
+}
+
+.slide-full {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
