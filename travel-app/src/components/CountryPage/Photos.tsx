@@ -1,35 +1,56 @@
 import React, { useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, {
-  Navigation, Pagination,
-} from 'swiper';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
-import 'swiper/swiper-bundle.css';
-import SlideItem from './SlideItem';
-import FullScreenSlider from './FullScreenSlider';
-
-SwiperCore.use([Navigation, Pagination]);
 
 interface PhotosProps {
   imgUrls: string[]
 }
 
 const Photos:React.FC<PhotosProps> = ({ imgUrls }: PhotosProps) => {
-  const [thumbs, setThumbs] = useState<null | SwiperCore>(null);
+  const [activeImage, setActiveImage] = useState<number>(0);
+
   const handle = useFullScreenHandle();
+
+  const activeImgHandler = (ind:number) => {
+    setActiveImage(ind);
+  };
+
+  const wrapperClasses = ['photos-wrapper'];
+  const imageClases = ['active-image'];
+  const mainImageClasses = ['main-img'];
+
+  if (handle.active) {
+    wrapperClasses.push('photos-wrapper-fullscreen');
+    imageClases.push('active-image-fullscreen');
+    mainImageClasses.push('main-img-fullscreen');
+  }
 
   return (
     <>
-      <div className="photos-wrapper">
-        <Swiper slidesPerView={1} className="main-photos" navigation pagination thumbs={{ swiper: thumbs }}>
-          {imgUrls.map((i) => <SwiperSlide className="slide"><SlideItem fullScrrenHandler={handle.enter} imgUrl={i} itemDescription="slide description" itemRating={5} /></SwiperSlide>)}
-        </Swiper>
-        <Swiper className="thumbs-photo" spaceBetween={5} slidesPerView={imgUrls.length} onSwiper={setThumbs}>
-          {imgUrls.map((i) => <SwiperSlide><img className="item-thumb" src={i} alt="thumbs" /></SwiperSlide>)}
-        </Swiper>
-      </div>
       <FullScreen handle={handle}>
-        <FullScreenSlider imgUrls={imgUrls} isFull={handle.active} />
+        <div className={wrapperClasses.join(' ')}>
+          <div className={imageClases.join(' ')}>
+            <img
+              className={mainImageClasses.join(' ')}
+              onClick={handle.enter}
+              onKeyPress={handle.enter}
+              role="presentation"
+              src={imgUrls[activeImage]}
+              alt="active img"
+            />
+          </div>
+          <div className="thumbs">
+            {imgUrls.map((img, ind) => (
+              <img
+                onClick={() => activeImgHandler(ind)}
+                onKeyPress={() => activeImgHandler(ind)}
+                role="presentation"
+                className={ind === activeImage ? 'thumb-img-active' : 'thumb-img'}
+                src={img}
+                alt="thumb-img"
+              />
+            ))}
+          </div>
+        </div>
       </FullScreen>
     </>
   );
