@@ -1,9 +1,0 @@
-import React from 'react';
-
-const Currencies:React.FC = () => (
-  <div>
-    Currencies
-  </div>
-);
-
-export default Currencies;
