@@ -29,7 +29,6 @@ const WeatherWidget: React.FC<PropsType> = ({ weatherData }: PropsType) => {
         m/s
       </div>
       <div className="city" contentEditable="true" />
-      WeatherWidget
     </div>
   );
 };

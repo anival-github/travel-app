@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../../redux/store';
 import Currencies from './Currencies';
-import TimeWidget from './TimeWidget';
+import TimeWidgetContainer from './TimeWidget/TimeWidgetContainer';
 import { getWeather } from '../../../redux/widgets-reducer';
 import WeatherWidgetContainer from './WeatherWidget/WeatherWidgetContainer';
 
@@ -23,7 +23,7 @@ const WidgetsContainer: React.FC<PropsType> = ({ getWeather, weatherData }: Prop
     <div className="widgets-wrapper">
       <Currencies />
       <WeatherWidgetContainer city={city} getWeather={getWeather} weatherData={weatherData} />
-      <TimeWidget />
+      <TimeWidgetContainer languageCode="ru-RU" timeZone="Europe/Minsk" />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import CountryVideo from './CountryVideo';
 import MainInfo from './MainInfo';
 import MapComponent from './MapComponent';
 import Photos from './Photos';
-import WidgetsContainer from './vidgets/WidgetsContainer';
+import WidgetsContainer from './Widgets/WidgetsContainer';
 
 const imgUrls = [
   'http://photoeverywhere.co.uk/west/usa/san_francisco/sunset_sf_skyline6005.jpg',
