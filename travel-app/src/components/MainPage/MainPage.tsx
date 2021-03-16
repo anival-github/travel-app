@@ -1,47 +1,55 @@
-import React from 'react';
-import {
-  Container,
-  Typography,
-  CardMedia,
-  Grid,
-  Card,
-  CardContent,
-  CardActions,
+import React, { useEffect } from 'react';
+import { Container, Grid } from '@material-ui/core';
+import { connect } from 'react-redux';
+import { AppStateType } from '../../redux/store';
+import { getAllCoutriesData } from '../../redux/countries-reducer';
+import CountryCard from './CountryCard';
 
-} from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+type MapStateToPropsType = {
+  allCountriesData: any,
+};
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8];
+type MapDispatchToPropsType = {
+  getAllCoutriesData: () => Promise<void>,
+};
 
-const MainPage:React.FC = () => (
-  <div>
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
+
+const lang = 'en-US';
+
+const MainPage: React.FC<PropsType> = ({ allCountriesData, getAllCoutriesData }: PropsType) => {
+  useEffect(() => { getAllCoutriesData(); }, []);
+
+  let cards;
+
+  if (allCountriesData) {
+    cards = allCountriesData.map((country: any) => {
+      const { ISOCode, imageUrl, localizations } = country;
+
+      const localisation = localizations.find((elem: any) => elem.lang === lang);
+      const countryName = localisation.name;
+
+      return (
+        <CountryCard
+          ISOCode={ISOCode}
+          imageUrl={imageUrl}
+          countryName={countryName}
+        />
+      );
+    });
+  }
+
+  return (
     <Container className="mainpage" maxWidth="md">
       <Grid container spacing={4}>
-        {cards.map((card) => (
-          <Grid item key={card} xs={12} sm={6} md={4}>
-            <Card>
-              <CardMedia
-                className="cardmedia"
-                image="https://source.unsplash.com/random"
-                title="Image title"
-              />
-              <CardContent>
-                <Typography variant="h5" gutterBottom>
-                  CountryPage
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button size="small" color="primary">
-                  View
-                </Button>
-              </CardActions>
-            </Card>
-          </Grid>
-        ))}
+        {cards}
       </Grid>
-
     </Container>
-  </div>
-);
+  );
+};
 
-export default MainPage;
+const mapStateToProps = (state: AppStateType) => ({
+  allCountriesData: state.countries.allCountriesData,
+});
+
+export default connect(mapStateToProps, { getAllCoutriesData })(MainPage);
