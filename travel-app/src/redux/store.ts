@@ -4,11 +4,13 @@ import {
 } from 'redux';
 import thunkMiddleWare from 'redux-thunk';
 import appReducer from './app-reducer';
+import countriesReducer from './countries-reducer';
 import widgetsReducer from './widgets-reducer';
 
 export const rootReducer = combineReducers({
   app: appReducer,
   widgets: widgetsReducer,
+  countries: countriesReducer,
 });
 
 type RootReducerType = typeof rootReducer;
