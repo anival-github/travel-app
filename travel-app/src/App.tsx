@@ -13,7 +13,7 @@ const App:React.FC = () => (
     <BrowserRouter>
       <Header />
       <Route exact path="/" component={MainPage} />
-      <Route path="/country" component={CountryPage} />
+      <Route path="/country/:ISOCode" component={CountryPage} />
       <Footer />
     </BrowserRouter>
   </div>

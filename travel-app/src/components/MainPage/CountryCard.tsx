@@ -3,6 +3,7 @@ import {
   Typography, CardMedia, Grid, Card, CardContent, CardActions,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { NavLink } from 'react-router-dom';
 
 type PropsType = {
   ISOCode: string,
@@ -26,7 +27,12 @@ const CountryCard: React.FC<PropsType> = ({
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button
+          size="small"
+          color="primary"
+          component={NavLink}
+          to={`/country/${ISOCode}`}
+        >
           View
         </Button>
       </CardActions>

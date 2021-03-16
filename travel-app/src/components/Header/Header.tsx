@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import {
   AppBar,
   Container,
@@ -15,7 +15,11 @@ const Header: React.FC = () => (
     <AppBar position="fixed">
       <Container fixed>
         <Toolbar className="header">
-          <Typography variant="h6">Travel app</Typography>
+          <Typography variant="h6">
+            <NavLink to="/">
+              Travel app
+            </NavLink>
+          </Typography>
           <SearchForm />
           <div>
             <Box mr={3}>
