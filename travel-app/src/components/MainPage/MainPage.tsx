@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { getAllCoutriesData } from '../../redux/countries-reducer';
 import CountryCard from './CountryCard';
+import compareCountry from '../../helpers/compareCountry';
 
 type MapStateToPropsType = {
   allCountriesData: any,
+  searchQuery: string,
 };
 
 type MapDispatchToPropsType = {
@@ -17,26 +19,30 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const lang = 'en-US';
 
-const MainPage: React.FC<PropsType> = ({ allCountriesData, getAllCoutriesData }: PropsType) => {
+const MainPage: React.FC<PropsType> = ({
+  searchQuery, allCountriesData, getAllCoutriesData,
+}: PropsType) => {
   useEffect(() => { getAllCoutriesData(); }, []);
 
   let cards;
 
   if (allCountriesData) {
-    cards = allCountriesData.map((country: any) => {
+    cards = allCountriesData.reduce((acc: any, country: any) => {
       const { ISOCode, imageUrl, localizations } = country;
 
       const localisation = localizations.find((elem: any) => elem.lang === lang);
-      const countryName = localisation.name;
+      const { name, capital } = localisation;
 
-      return (
-        <CountryCard
-          ISOCode={ISOCode}
-          imageUrl={imageUrl}
-          countryName={countryName}
-        />
-      );
-    });
+      const isCountryMatchSearchQuery = compareCountry(searchQuery, name, capital);
+
+      if (!isCountryMatchSearchQuery) {
+        return acc;
+      }
+
+      acc.push(<CountryCard ISOCode={ISOCode} imageUrl={imageUrl} countryName={name} />);
+
+      return acc;
+    }, []);
   }
 
   return (
@@ -50,6 +56,7 @@ const MainPage: React.FC<PropsType> = ({ allCountriesData, getAllCoutriesData }:
 
 const mapStateToProps = (state: AppStateType) => ({
   allCountriesData: state.countries.allCountriesData,
+  searchQuery: state.search.searchQuery,
 });
 
 export default connect(mapStateToProps, { getAllCoutriesData })(MainPage);
