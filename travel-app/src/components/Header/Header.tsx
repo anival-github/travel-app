@@ -7,8 +7,8 @@ import {
   Typography,
   Box,
 } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SearchForm from './SearchForm';
 
 const Header: React.FC = () => (
   <div>
@@ -16,13 +16,7 @@ const Header: React.FC = () => (
       <Container fixed>
         <Toolbar className="header">
           <Typography variant="h6">Travel app</Typography>
-
-          <form
-            noValidate
-            autoComplete="off"
-          >
-            <TextField id="outlined-basic" label="Change country" variant="outlined" />
-          </form>
+          <SearchForm />
           <div>
             <Box mr={3}>
               <Button color="inherit" variant="outlined">Log In</Button>
