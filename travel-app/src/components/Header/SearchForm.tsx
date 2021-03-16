@@ -1,5 +1,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
+import ClearIcon from '@material-ui/icons/Clear';
+import { IconButton } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { setSearchQuery, SetSearchQueryType } from '../../redux/search-reducer';
@@ -22,7 +25,20 @@ const SearchForm: React.FC<PropsType> = ({ searchQuery, setSearchQuery }: PropsT
       variant="outlined"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
+      autoFocus
     />
+    <IconButton
+      aria-label="delete"
+      onClick={() => setSearchQuery(searchQuery)}
+    >
+      <SearchIcon />
+    </IconButton>
+    <IconButton
+      aria-label="delete"
+      onClick={() => setSearchQuery('')}
+    >
+      <ClearIcon />
+    </IconButton>
   </form>
 );
 
