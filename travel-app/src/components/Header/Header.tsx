@@ -1,36 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
-  AppBar,
-  Container,
-  Toolbar,
-  Typography,
-  Box,
+  AppBar, Container, Toolbar, Typography, Box,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import SearchForm from './SearchForm';
 import ControlledOpenSelect from './select';
+import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
 
-const Header: React.FC = () => (
-  <div>
+const Header: React.FC = () => {
+  const userState = useTypedSelector((state) => state.userState);
+  return (
+
     <AppBar position="fixed">
       <Container fixed>
         <Toolbar className="header">
-          <Typography variant="h6">Travel app</Typography>
+          <Typography variant="h6">
+            <NavLink to="/">Travel app</NavLink>
+          </Typography>
           <SearchForm />
-          <div>
-            <Box mr={3}>
-              <Button color="inherit" variant="outlined">Log In</Button>
-              <Button color="secondary" variant="contained">Sign Up</Button>
-            </Box>
-          </div>
+          <Box mr={3}>
+            {userState.isLoged
+              ? <h1>{userState.user?.login}</h1>
+              : (
+                <>
+                  <Button color="inherit" variant="outlined">Log In</Button>
+                  <Button color="secondary" variant="contained" href="/signup">Sign Up</Button>
+                </>
+              )}
+          </Box>
           <ControlledOpenSelect />
         </Toolbar>
       </Container>
     </AppBar>
-    <Link to="/">Home</Link>
-    <Link to="/country">Country</Link>
-  </div>
-);
+
+  );
+};
 
 export default Header;
