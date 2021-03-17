@@ -5,10 +5,12 @@ import {
 import thunkMiddleWare from 'redux-thunk';
 import appReducer from './app-reducer';
 import widgetsReducer from './widgets-reducer';
+import { UserStateReduser } from './reducers/UserStateReduser';
 
 export const rootReducer = combineReducers({
   app: appReducer,
   widgets: widgetsReducer,
+  userState: UserStateReduser,
 });
 
 type RootReducerType = typeof rootReducer;
