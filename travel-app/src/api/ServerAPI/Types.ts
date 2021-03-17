@@ -14,6 +14,7 @@ type Country = {
     description: string;
     name: string;
   }[];
+  timeZone: string;
 };
 
 type Place = {
