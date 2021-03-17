@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux';
 import { UserPublicData, AuthorizationResult, LoginCredentials } from '../../api/ServerAPI/Types';
-import { registration, checkSession, authorizeViaLogin } from '../../api/ServerAPI/Users';
+import {
+  registration, checkSession, authorizeViaLogin, logOut,
+} from '../../api/ServerAPI/Users';
 
 type UserState = {
   user: UserPublicData | null;
@@ -167,6 +169,34 @@ function userCheckSession() {
   };
 }
 
+function userLogOut(login: string) {
+  return async (dispatch: Dispatch<UserStateActions>) => {
+    dispatch(setPendingStatusAction({
+      isPending: true,
+      isSuccessful: true,
+    }));
+    const {
+      authorizationStatus,
+      token,
+      user,
+    }:AuthorizationResult = await logOut(login);
+    if (!authorizationStatus) {
+      dispatch(setUserStateAction({
+        user,
+        token,
+        isLoged: authorizationStatus,
+        queryStatus: { isPending: false, isSuccessful: true },
+      }));
+      localStorage.setItem('token', '');
+    } else {
+      dispatch(setPendingStatusAction({
+        isPending: false,
+        isSuccessful: false,
+      }));
+    }
+  };
+}
+
 export {
   UserStateReduser,
   UserStateActionTypes,
@@ -175,4 +205,5 @@ export {
   userRegistration,
   userCheckSession,
   userLogin,
+  userLogOut,
 };

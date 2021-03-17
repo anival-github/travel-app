@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import SearchForm from './SearchForm';
 import ControlledOpenSelect from './select';
 import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
+import User from '../Authorization/User';
 
 const Header: React.FC = () => {
   const userState = useTypedSelector((state) => state.userState);
@@ -21,7 +22,12 @@ const Header: React.FC = () => {
           <SearchForm />
           <Box mr={3}>
             {userState.isLoged
-              ? <h1>{userState.user?.login}</h1>
+              ? (
+                <User
+                  userLogin={userState.user?.login as string}
+                  avatarSrc={userState.user?.imgSecureUrl as string}
+                />
+              )
               : (
                 <>
                   <Button color="inherit" variant="outlined" href="/login">Log In</Button>
