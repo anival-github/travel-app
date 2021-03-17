@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { UserPublicData, AuthorizationResult } from '../../api/ServerAPI/Types';
-import { registration } from '../../api/ServerAPI/Users';
+import { registration, checkSession } from '../../api/ServerAPI/Users';
 
 type UserState = {
   user: UserPublicData | null;
@@ -107,10 +107,43 @@ function userRegistration(registrationData: FormData) {
   };
 }
 
+function userCheckSession() {
+  return async (dispatch: Dispatch<UserStateActions>):Promise<void> => {
+    const localToken = localStorage.getItem('token');
+    if (localToken) {
+      dispatch(setPendingStatusAction({
+        isPending: true,
+        isSuccessful: true,
+      }));
+      const {
+        authorizationStatus,
+        token,
+        user,
+      }:AuthorizationResult = await checkSession(localToken);
+      if (authorizationStatus) {
+        dispatch(setUserStateAction({
+          user,
+          token,
+          isLoged: authorizationStatus,
+          queryStatus: { isPending: false, isSuccessful: true },
+        }));
+        localStorage.setItem('token', token);
+      } else {
+        dispatch(setPendingStatusAction({
+          isPending: false,
+          isSuccessful: false,
+        }));
+        localStorage.setItem('token', '');
+      }
+    }
+  };
+}
+
 export {
   UserStateReduser,
   UserStateActionTypes,
   setUserStateAction,
   clearUserStateAction,
   userRegistration,
+  userCheckSession,
 };
