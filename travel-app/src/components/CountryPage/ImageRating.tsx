@@ -32,13 +32,13 @@ const ImageRating:React.FC<RatingProps> = ({
   };
 
   const handleSubmit = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const data = {
       placeId: placeReview[0].placeId,
       userLogin: 'User',
       rating: rate,
       reviewText: text,
     };
+    console.log(data);
     setText('');
     setVisible(false);
   };

@@ -7,16 +7,12 @@ import appReducer from './app-reducer';
 import countriesReducer from './countries-reducer';
 import searchReducer from './search-reducer';
 import widgetsReducer from './widgets-reducer';
-import { UserStateReduser } from './reducers/UserStateReduser';
 
 export const rootReducer = combineReducers({
   app: appReducer,
   widgets: widgetsReducer,
-
   countries: countriesReducer,
   search: searchReducer,
-
-  userState: UserStateReduser,
 });
 
 type RootReducerType = typeof rootReducer;

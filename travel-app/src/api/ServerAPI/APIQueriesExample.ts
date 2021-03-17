@@ -1,7 +1,7 @@
 import * as CountriesAPI from './Countries';
 import * as PlacesAPI from './Places';
 import * as ReviewsAPI from './Reviews';
-import { authorizeViaLogin } from './Users';
+import authorizeViaLogin from './Users';
 import {
   Review, UpdateReview, LoginCredentials, AuthorizationResult,
 } from './Types';
