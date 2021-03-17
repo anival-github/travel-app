@@ -14,4 +14,17 @@ async function authorizeViaLogin(LoginCredentials: LoginCredentials): Promise<Au
   return result;
 }
 
-export default authorizeViaLogin;
+async function registration(userData: FormData): Promise<AuthorizationResult> {
+  const requestOptions = {
+    method: 'POST',
+    mode: 'cors' as RequestMode,
+    headers: {
+      uploadPreset: 'avatar',
+    },
+    body: userData,
+  };
+  const response: Response = await fetch(`${SERVER_PATH}${USERS_PATH}/register`, requestOptions);
+  const result: AuthorizationResult = await response.json();
+  return result;
+}
+export { authorizeViaLogin, registration };
