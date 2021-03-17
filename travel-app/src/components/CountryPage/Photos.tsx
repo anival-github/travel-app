@@ -5,10 +5,11 @@ import ImageContainer from './ImageContainer';
 import ImageRating from './ImageRating';
 
 interface PhotosProps {
+  countryId: string
   imgUrls: any
 }
 
-const Photos:React.FC<PhotosProps> = ({ imgUrls }: PhotosProps) => {
+const Photos:React.FC<PhotosProps> = ({ imgUrls, countryId }: PhotosProps) => {
   const [activeImage, setActiveImage] = useState<number>(0);
 
   const handle = useFullScreenHandle();
@@ -112,6 +113,7 @@ const Photos:React.FC<PhotosProps> = ({ imgUrls }: PhotosProps) => {
           </div>
           <ImageRating placeReview={reviews} classes={descriptionClasses.join(' ')} rating={imgUrls[activeImage].rating} comments={23} />
           <div className={descriptionClasses.join(' ')}>
+            {countryId}
             {imgUrls[activeImage].description}
           </div>
           <div className="thumbs">
