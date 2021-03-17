@@ -4,6 +4,7 @@ import { LoginCredentials, AuthorizationResult } from './Types';
 async function authorizeViaLogin(LoginCredentials: LoginCredentials): Promise<AuthorizationResult> {
   const requestOptions = {
     method: 'PUT',
+    mode: 'cors' as RequestMode,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -41,4 +42,20 @@ async function checkSession(token: string): Promise<AuthorizationResult> {
   const result: AuthorizationResult = await response.json();
   return result;
 }
-export { authorizeViaLogin, registration, checkSession };
+
+async function logOut(login: string) {
+  const requestOptions = {
+    method: 'DELETE',
+    mode: 'cors' as RequestMode,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ login }),
+  };
+  const response: Response = await fetch(`${SERVER_PATH}${USERS_PATH}/logout`, requestOptions);
+  const result: AuthorizationResult = await response.json();
+  return result;
+}
+export {
+  authorizeViaLogin, registration, checkSession, logOut,
+};

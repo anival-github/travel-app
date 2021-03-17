@@ -1,32 +1,22 @@
 import React, {
-  FC, CSSProperties, useRef, useState,
+  FC, CSSProperties, useRef,
 } from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
-  Grid, Button, LinearProgress, Avatar,
+  Grid, Button, LinearProgress,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
-import { userRegistration } from '../../redux/reducers/UserStateReduser';
+import { userLogin } from '../../redux/reducers/UserStateReduser';
 
-async function setAvatarhandler(e:any, calllback: Function) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = async () => {
-    calllback(reader.result);
-  };
-  reader.readAsDataURL(file);
-}
-
-const Signup: FC = () => {
+const Login: FC = () => {
   const userState = useTypedSelector((state) => state.userState);
   const styleCss: CSSProperties = {
     marginTop: '100px',
     height: '100%',
   };
-  const [avatarSrc, setavatarSrc] = useState('');
   const dispatch = useDispatch();
   const form = useRef<HTMLFormElement>(null);
   return (
@@ -35,7 +25,7 @@ const Signup: FC = () => {
       {userState.isLoged && <Redirect to="/" /> }
       <form
         ref={form}
-        name="registrationForm"
+        name="loginForm"
         noValidate={false}
         autoComplete="off"
         action="#"
@@ -43,34 +33,19 @@ const Signup: FC = () => {
           e.preventDefault();
           if (form.current) {
             const formdata = new FormData(form.current);
-            dispatch(userRegistration(formdata));
+            dispatch(userLogin({
+              login: formdata.get('login') as string || '',
+              password: formdata.get('password') as string || '',
+            }));
           }
         }}
       >
         <Grid container direction="column" justify="center" alignItems="center">
           {userState.queryStatus.isSuccessful
-            ? <Alert severity="info">Enter registration data</Alert>
-            : <Alert severity="warning">Login or email alredy taken</Alert>}
-          <Avatar alt="" src={avatarSrc} style={{ width: '180px', height: '180px' }} />
-          <label htmlFor="contained-button-file">
-            <input
-              name="avatar"
-              accept="image/*"
-              id="contained-button-file"
-              type="file"
-              style={{ display: 'none' }}
-              onChange={(e) => setAvatarhandler(e, setavatarSrc)}
-            />
-
-            <Button variant="contained" component="span">
-              Chose avatar
-            </Button>
-          </label>
-          <TextField style={{ marginTop: '10px' }} variant="filled" label="Name" name="name" />
+            ? <Alert severity="info">Enter login data</Alert>
+            : <Alert severity="warning">Login orpassword incorrect</Alert>}
           <TextField style={{ marginTop: '10px' }} variant="filled" label="Login" required name="login" />
-          <TextField style={{ marginTop: '10px' }} variant="filled" label="Email" type="email" required name="email" />
           <TextField style={{ marginTop: '10px' }} variant="filled" label="Password" required name="password" />
-          {/* {userState.queryStatus.isPending && <LinearProgress /> } */}
           <Grid container direction="row" justify="center" alignItems="center" style={{ marginTop: '10px' }}>
             {userState.queryStatus.isPending && <LinearProgress /> }
             <Button
@@ -78,12 +53,11 @@ const Signup: FC = () => {
               color="primary"
               type="submit"
             >
-              Register
+              Login
             </Button>
             <Button variant="contained" color="secondary">
               Cancel
             </Button>
-
           </Grid>
         </Grid>
       </form>
@@ -91,4 +65,4 @@ const Signup: FC = () => {
   );
 };
 
-export default Signup;
+export default Login;

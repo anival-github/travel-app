@@ -6,6 +6,7 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Signup from './components/Authorization/Signup';
+import Login from './components/Authorization/Login';
 import { userCheckSession } from './redux/reducers/UserStateReduser';
 // import APIqueriesExample from './api/ServerAPI/APIQueriesExample';
 
@@ -23,6 +24,7 @@ const App:React.FC = () => {
         <Route exact path="/" component={MainPage} />
         <Route path="/country/:ISOCode" component={CountryPage} />
         <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
         <Footer />
       </BrowserRouter>
     </div>
