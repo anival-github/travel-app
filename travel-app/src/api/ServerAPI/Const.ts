@@ -1,5 +1,5 @@
-const SERVER_PATH = 'http://localhost:3005'; // local
-// const SERVER_PATH = 'https://team65-rss--travel-app-server.herokuapp.com';// remote
+// const SERVER_PATH = 'http://localhost:3005'; // local
+const SERVER_PATH = 'https://team65-rss--travel-app-server.herokuapp.com';// remote
 const COUNTRIES_PATH = '/countries';
 const PLACES_PATH = '/places';
 const REVIEWS_PATH = '/reviews';
