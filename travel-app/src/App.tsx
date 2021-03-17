@@ -8,6 +8,7 @@ import MainPage from './components/MainPage';
 import Signup from './components/Authorization/Signup';
 import { userCheckSession } from './redux/reducers/UserStateReduser';
 // import APIqueriesExample from './api/ServerAPI/APIQueriesExample';
+
 // APIqueriesExample();// функция для демонстрации работы Server API функций.
 
 const App:React.FC = () => {

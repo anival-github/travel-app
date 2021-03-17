@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { AppStateType } from '../../redux/store';
+import { getAllCoutriesData } from '../../redux/countries-reducer';
 import CountryVideo from './CountryVideo';
 import MainInfo from './MainInfo';
 import MapComponent from './MapComponent';
 import Photos from './Photos';
 import WidgetsContainer from './Widgets/WidgetsContainer';
+import Spinner from './spinner/Spinner';
 
 const imgUrls = [
   { imgUrl: 'https://gls-space.ams3.digitaloceanspaces.com/lbcms-container-cz_excursions_resale/08a1eb18-e094-11ea-8545-baa2e45fb9df.webp', description: 'Description of photo', rating: 5 },
@@ -13,18 +18,71 @@ const imgUrls = [
   { imgUrl: 'https://www.iphones.ru/wp-content/uploads/2018/12/345C71E8-2FE2-4362-A8CB-BA600AB33F56.jpeg', description: 'Description of photo', rating: 5 },
 ];
 
-const CountryPage:React.FC = () => (
-  <div className="country-page-wrapper">
-    <div className="map-vs-video-container">
-      <Photos imgUrls={imgUrls} />
-      <WidgetsContainer />
-    </div>
-    <div className="map-vs-video-container">
-      <CountryVideo videoUrl="oGWGiambBx8" />
-      <MapComponent coordinates={[53.90899450883923, 27.549398216118476]} countryAbr="BLR" />
-      <MainInfo />
-    </div>
-  </div>
-);
+type MapStateToPropsType = {
+  allCountriesData: any,
+};
 
-export default CountryPage;
+type MapDispatchToPropsType = {
+  getAllCoutriesData: () => Promise<void>,
+};
+
+interface UrlParams {
+  ISOCode: string
+}
+
+interface UrlProps extends RouteComponentProps<UrlParams> {}
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & RouteComponentProps & UrlProps;
+
+const language = 'en-US';
+
+const CountryPage:React.FC<PropsType> = ({
+  match,
+  allCountriesData,
+  getAllCoutriesData,
+}: PropsType) => {
+  useEffect(() => {
+    if (!allCountriesData) {
+      console.log('useEffect');
+      getAllCoutriesData();
+    }
+  }, []);
+
+  const IsoCode = match.params.ISOCode;
+
+  if (allCountriesData) {
+    const {
+      capitalLocation,
+      imageUrl,
+      localizations,
+      videoUrl,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      _id,
+    } = allCountriesData.filter((item: any) => item.ISOCode === IsoCode)[0];
+    const localisation = localizations.find((elem: any) => elem.lang === language);
+    const { name, capital, description } = localisation;
+
+    return (
+      <div className="country-page-wrapper">
+        <WidgetsContainer />
+        <MainInfo imgUrl={imageUrl} name={name} capital={capital} description={description} />
+        <Photos countryId={_id} imgUrls={imgUrls} />
+        <div className="map-vs-video-container">
+          <CountryVideo videoUrl={videoUrl} />
+          <MapComponent
+            capital={capital}
+            coordinates={capitalLocation.coordinates}
+            countryAbr={IsoCode}
+          />
+        </div>
+      </div>
+    );
+  }
+  return <Spinner />;
+};
+
+const mapStateToProps = (state: AppStateType) => ({
+  allCountriesData: state.countries.allCountriesData,
+});
+
+export default connect(mapStateToProps, { getAllCoutriesData })(CountryPage);
