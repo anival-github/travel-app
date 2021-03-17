@@ -24,7 +24,7 @@ const Header: React.FC = () => {
               ? <h1>{userState.user?.login}</h1>
               : (
                 <>
-                  <Button color="inherit" variant="outlined">Log In</Button>
+                  <Button color="inherit" variant="outlined" href="/login">Log In</Button>
                   <Button color="secondary" variant="contained" href="/signup">Sign Up</Button>
                 </>
               )}

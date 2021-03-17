@@ -4,6 +4,7 @@ import { LoginCredentials, AuthorizationResult } from './Types';
 async function authorizeViaLogin(LoginCredentials: LoginCredentials): Promise<AuthorizationResult> {
   const requestOptions = {
     method: 'PUT',
+    mode: 'cors' as RequestMode,
     headers: {
       'Content-Type': 'application/json',
     },
