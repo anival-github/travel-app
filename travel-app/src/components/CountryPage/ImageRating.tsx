@@ -38,7 +38,6 @@ const ImageRating:React.FC<RatingProps> = ({
       rating: rate,
       reviewText: text,
     };
-    console.log(data);
     setText('');
     setVisible(false);
   };
