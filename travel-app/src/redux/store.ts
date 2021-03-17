@@ -12,8 +12,10 @@ import { UserStateReduser } from './reducers/UserStateReduser';
 export const rootReducer = combineReducers({
   app: appReducer,
   widgets: widgetsReducer,
+
   countries: countriesReducer,
   search: searchReducer,
+
   userState: UserStateReduser,
 });
 

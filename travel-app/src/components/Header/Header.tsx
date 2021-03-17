@@ -10,6 +10,7 @@ import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
 const Header: React.FC = () => {
   const userState = useTypedSelector((state) => state.userState);
   return (
+
     <AppBar position="fixed">
       <Container fixed>
         <Toolbar className="header">
@@ -31,6 +32,7 @@ const Header: React.FC = () => {
         </Toolbar>
       </Container>
     </AppBar>
+
   );
 };
 
