@@ -9,6 +9,7 @@ import {
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import SearchForm from './SearchForm';
+import ControlledOpenSelect from './select';
 
 const Header: React.FC = () => (
   <div>
@@ -22,8 +23,8 @@ const Header: React.FC = () => (
               <Button color="inherit" variant="outlined">Log In</Button>
               <Button color="secondary" variant="contained">Sign Up</Button>
             </Box>
-            <Button variant="contained">Change language</Button>
           </div>
+          <ControlledOpenSelect />
         </Toolbar>
       </Container>
     </AppBar>
