@@ -15,12 +15,14 @@ const imgUrls = [
 
 const CountryPage:React.FC = () => (
   <div className="country-page-wrapper">
-    <WidgetsContainer />
-    <MainInfo />
-    <Photos imgUrls={imgUrls} />
+    <div className="map-vs-video-container">
+      <Photos imgUrls={imgUrls} />
+      <WidgetsContainer />
+    </div>
     <div className="map-vs-video-container">
       <CountryVideo videoUrl="oGWGiambBx8" />
       <MapComponent coordinates={[53.90899450883923, 27.549398216118476]} countryAbr="BLR" />
+      <MainInfo />
     </div>
   </div>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../../redux/store';
-import Currencies from './Currencies';
+import Currencies from './CurrencyWidget/Currencies';
 import TimeWidgetContainer from './TimeWidget/TimeWidgetContainer';
 import { getWeather } from '../../../redux/widgets-reducer';
 import WeatherWidgetContainer from './WeatherWidget/WeatherWidgetContainer';
