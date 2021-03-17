@@ -16,7 +16,6 @@ type MapDispatchToProps = {
 };
 
 type PropsType = MapStateToPropsType & MapDispatchToProps;
-
 const SearchForm: React.FC<PropsType> = ({ searchQuery, setSearchQuery }: PropsType) => (
   <form noValidate autoComplete="off">
     <TextField
