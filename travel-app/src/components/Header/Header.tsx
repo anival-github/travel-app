@@ -5,6 +5,7 @@ import {
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import SearchForm from './SearchForm';
+import ControlledOpenSelect from './select';
 import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
 
 const Header: React.FC = () => {
@@ -18,7 +19,6 @@ const Header: React.FC = () => {
             <NavLink to="/">Travel app</NavLink>
           </Typography>
           <SearchForm />
-          <Button variant="contained">Change language</Button>
           <Box mr={3}>
             {userState.isLoged
               ? <h1>{userState.user?.login}</h1>
@@ -29,6 +29,7 @@ const Header: React.FC = () => {
                 </>
               )}
           </Box>
+          <ControlledOpenSelect />
         </Toolbar>
       </Container>
     </AppBar>
