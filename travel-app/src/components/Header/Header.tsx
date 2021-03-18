@@ -13,6 +13,8 @@ import {
   setCurrentLanguage, LanguageType, SetCurrentLanguageType, ButtonsLocalisationType,
 } from '../../redux/localisation-reducer';
 
+import User from '../Authorization/User';
+
 type MapStateToPropsType = {
   currentLanguage: LanguageType,
   languagesAvailable: Array<LanguageType>,
@@ -48,7 +50,12 @@ const Header: React.FC<PropsType> = ({
           <SearchForm buttonsNames={buttonsNames} />
           <Box mr={3}>
             {userState.isLoged
-              ? <h1>{userState.user?.login}</h1>
+              ? (
+                <User
+                  userLogin={userState.user?.login as string}
+                  avatarSrc={userState.user?.imgSecureUrl as string}
+                />
+              )
               : (
                 <>
                   <Button color="inherit" variant="outlined">{logIn}</Button>

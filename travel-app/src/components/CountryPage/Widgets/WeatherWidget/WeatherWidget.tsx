@@ -13,19 +13,27 @@ const WeatherWidget: React.FC<PropsType> = ({ weatherData }: PropsType) => {
     <div className="weather">
       <i className={`weather-icon owf ${iconClass}`} />
       <div className="temperature">
+        Current:
+        {' '}
         { weatherData && weatherData.main.temp}
         °C
       </div>
       <div className="weather-description">
+        Precipitation:
+        {' '}
         {weatherData && weatherData.weather[0].description}
       </div>
       <div className="humidity">
         Humidity:
+        {' '}
         {weatherData && weatherData.main.humidity}
+        %
       </div>
       <div className="wind">
-        Wind:
+        Wind Speed:
+        {' '}
         {weatherData && weatherData.wind.speed}
+        {' '}
         m/s
       </div>
       <div className="city" contentEditable="true" />

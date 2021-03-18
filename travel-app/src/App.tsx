@@ -6,11 +6,13 @@ import Footer from './components/Footer';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Signup from './components/Authorization/Signup';
+import Login from './components/Authorization/Login';
 import { userCheckSession } from './redux/reducers/UserStateReduser';
 import { LanguageType } from './redux/app-reducer';
 import { ButtonsLocalisationType } from './redux/localisation-reducer';
 import { AppStateType } from './redux/store';
 // import APIqueriesExample from './api/ServerAPI/APIQueriesExample';
+
 // APIqueriesExample();// функция для демонстрации работы Server API функций.
 
 type MapStateToPropsType = {
@@ -50,6 +52,7 @@ const App: React.FC<PropsType> = ({
         </Route>
         <Route path="/country/:ISOCode" component={CountryPage} />
         <Route path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
         <Footer />
       </BrowserRouter>
     </div>

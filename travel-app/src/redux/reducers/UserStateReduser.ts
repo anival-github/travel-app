@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux';
-import { UserPublicData, AuthorizationResult } from '../../api/ServerAPI/Types';
-import { registration, checkSession } from '../../api/ServerAPI/Users';
+import { UserPublicData, AuthorizationResult, LoginCredentials } from '../../api/ServerAPI/Types';
+import {
+  registration, checkSession, authorizeViaLogin, logOut,
+} from '../../api/ServerAPI/Users';
 
 type UserState = {
   user: UserPublicData | null;
@@ -107,6 +109,34 @@ function userRegistration(registrationData: FormData) {
   };
 }
 
+function userLogin(LoginCredentials: LoginCredentials) {
+  return async (dispatch: Dispatch<UserStateActions>):Promise<void> => {
+    dispatch(setPendingStatusAction({
+      isPending: true,
+      isSuccessful: true,
+    }));
+    const {
+      authorizationStatus,
+      token,
+      user,
+    }:AuthorizationResult = await authorizeViaLogin(LoginCredentials);
+    if (authorizationStatus) {
+      dispatch(setUserStateAction({
+        user,
+        token,
+        isLoged: authorizationStatus,
+        queryStatus: { isPending: false, isSuccessful: true },
+      }));
+      localStorage.setItem('token', token);
+    } else {
+      dispatch(setPendingStatusAction({
+        isPending: false,
+        isSuccessful: false,
+      }));
+    }
+  };
+}
+
 function userCheckSession() {
   return async (dispatch: Dispatch<UserStateActions>):Promise<void> => {
     const localToken = localStorage.getItem('token');
@@ -139,6 +169,34 @@ function userCheckSession() {
   };
 }
 
+function userLogOut(login: string) {
+  return async (dispatch: Dispatch<UserStateActions>) => {
+    dispatch(setPendingStatusAction({
+      isPending: true,
+      isSuccessful: true,
+    }));
+    const {
+      authorizationStatus,
+      token,
+      user,
+    }:AuthorizationResult = await logOut(login);
+    if (!authorizationStatus) {
+      dispatch(setUserStateAction({
+        user,
+        token,
+        isLoged: authorizationStatus,
+        queryStatus: { isPending: false, isSuccessful: true },
+      }));
+      localStorage.setItem('token', '');
+    } else {
+      dispatch(setPendingStatusAction({
+        isPending: false,
+        isSuccessful: false,
+      }));
+    }
+  };
+}
+
 export {
   UserStateReduser,
   UserStateActionTypes,
@@ -146,4 +204,6 @@ export {
   clearUserStateAction,
   userRegistration,
   userCheckSession,
+  userLogin,
+  userLogOut,
 };
