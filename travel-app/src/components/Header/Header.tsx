@@ -4,13 +4,41 @@ import {
   AppBar, Container, Toolbar, Typography, Box,
 } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
-import ControlledOpenSelect from './select';
+import SelectLanguage from './SelectLanguage';
 import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
+import { AppStateType } from '../../redux/store';
+import {
+  setCurrentLanguage, LanguageType, SetCurrentLanguageType, ButtonsLocalisationType,
+} from '../../redux/localisation-reducer';
+
 import User from '../Authorization/User';
 
-const Header: React.FC = () => {
+type MapStateToPropsType = {
+  currentLanguage: LanguageType,
+  languagesAvailable: Array<LanguageType>,
+};
+
+type MapDispatchToPropsType = {
+  setCurrentLanguage: (language: LanguageType) => SetCurrentLanguageType,
+};
+
+type OwnPropsType = {
+  currentButtonsLocalosation: ButtonsLocalisationType,
+};
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
+
+const Header: React.FC<PropsType> = ({
+  languagesAvailable, currentLanguage, currentButtonsLocalosation, setCurrentLanguage,
+}: PropsType) => {
   const userState = useTypedSelector((state) => state.userState);
+
+  const buttonsNames = currentButtonsLocalosation.buttons;
+
+  const { logIn, signUp } = buttonsNames;
+
   return (
 
     <AppBar position="fixed">
@@ -19,7 +47,7 @@ const Header: React.FC = () => {
           <Typography variant="h6">
             <NavLink to="/">Travel app</NavLink>
           </Typography>
-          <SearchForm />
+          <SearchForm buttonsNames={buttonsNames} />
           <Box mr={3}>
             {userState.isLoged
               ? (
@@ -30,12 +58,17 @@ const Header: React.FC = () => {
               )
               : (
                 <>
-                  <Button color="inherit" variant="outlined" href="/login">Log In</Button>
-                  <Button color="secondary" variant="contained" href="/signup">Sign Up</Button>
+                  <Button color="inherit" variant="outlined">{logIn}</Button>
+                  <Button color="secondary" variant="contained" href="/signup">{signUp}</Button>
                 </>
               )}
           </Box>
-          <ControlledOpenSelect />
+          <SelectLanguage
+            languagesAvailable={languagesAvailable}
+            currentLanguage={currentLanguage}
+            setCurrentLanguage={setCurrentLanguage}
+            buttonsNames={buttonsNames}
+          />
         </Toolbar>
       </Container>
     </AppBar>
@@ -43,4 +76,9 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+const MapStateToProps = (state: AppStateType) => ({
+  currentLanguage: state.localisation.currentLanguage,
+  languagesAvailable: state.localisation.languagesAvailable,
+});
+
+export default connect(MapStateToProps, { setCurrentLanguage })(Header);
