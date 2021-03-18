@@ -6,6 +6,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { setSearchQuery, SetSearchQueryType } from '../../redux/search-reducer';
+import { ButtonsType } from '../../redux/localisation-reducer';
 
 type MapStateToPropsType = {
   searchQuery: string,
@@ -15,12 +16,18 @@ type MapDispatchToProps = {
   setSearchQuery: (searchQuery: string) => SetSearchQueryType,
 };
 
-type PropsType = MapStateToPropsType & MapDispatchToProps;
-const SearchForm: React.FC<PropsType> = ({ searchQuery, setSearchQuery }: PropsType) => (
+type OwnProps = {
+  buttonsNames: ButtonsType,
+};
+
+type PropsType = MapStateToPropsType & MapDispatchToProps & OwnProps;
+const SearchForm: React.FC<PropsType> = ({
+  buttonsNames, searchQuery, setSearchQuery,
+}: PropsType) => (
   <form noValidate autoComplete="off">
     <TextField
       id="outlined-basic"
-      label="Find a country"
+      label={buttonsNames.findCoutry}
       variant="outlined"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}

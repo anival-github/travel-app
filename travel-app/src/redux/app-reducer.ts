@@ -1,33 +1,36 @@
-const TEST_VARIABLE = 'travel-app/app/TEST_VARIABLE';
+const TEST = 'travel-app/app/TEST';
+
+export type LanguageType = 'ru-RU' | 'en-US' | 'de-DE';
 
 const InitialState = {
-  test: 'testData',
+  languagesAvailable: ['ru-RU', 'en-US', 'de-DE'] as Array<LanguageType>,
+  currentLanguage: 'ru-RU' as LanguageType,
 };
 
 type InitialStateType = typeof InitialState;
 
-type ActionsType = TestActionCreatorType;
+type ActionsType = SetCurrentLanguageType;
 
 const appReducer = (state = InitialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
-    case TEST_VARIABLE:
+    case TEST:
       return {
         ...state,
-        test: action.test,
+        currentLanguage: action.language,
       };
     default:
       return state;
   }
 };
 
-type TestActionCreatorType = {
-  type: typeof TEST_VARIABLE,
-  test: string,
+export type SetCurrentLanguageType = {
+  type: typeof TEST,
+  language: LanguageType,
 };
 
-export const testActionCreator = (): TestActionCreatorType => ({
-  type: TEST_VARIABLE,
-  test: 'newTestData',
+export const setCurrentLanguage = (language: LanguageType): SetCurrentLanguageType => ({
+  type: TEST,
+  language,
 });
 
 export default appReducer;
