@@ -23,12 +23,12 @@ const appReducer = (state = InitialState, action: ActionsType): InitialStateType
   }
 };
 
-export type SetCurrentLanguageType = {
+type SetCurrentLanguageType = {
   type: typeof TEST,
   language: LanguageType,
 };
 
-export const setCurrentLanguage = (language: LanguageType): SetCurrentLanguageType => ({
+export const test = (language: LanguageType): SetCurrentLanguageType => ({
   type: TEST,
   language,
 });

@@ -50,7 +50,9 @@ const App: React.FC<PropsType> = ({
             currentButtonsLocalosation={currentButtonsLocalosation}
           />
         </Route>
-        <Route path="/country/:ISOCode" component={CountryPage} />
+        <Route path="/country/:ISOCode">
+          <CountryPage currentLanguage={currentLanguage} />
+        </Route>
         <Route path="/signup" component={Signup} />
         <Route path="/login" component={Login} />
         <Footer />
