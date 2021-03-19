@@ -23,9 +23,6 @@ const MapComponent:React.FC<MapComponentProps> = ({ capital, coordinates, countr
   });
 
   const coord: any = getPolygon(countryAbr).features[0].geometry.coordinates;
-  console.log(coord);
-  const cord = getPolygon(countryAbr).features[0].geometry;
-  console.log(cord);
   const newC: any = coord.map((item: any) => [item.map((i: any) => (i.length > 2 ? [i.map((it: any) => [it[1], it[0]])] : [i[1], i[0]]))]);
 
   return (

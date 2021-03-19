@@ -1,16 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FullScreen, useFullScreenHandle } from 'react-full-screen';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
+import { AppStateType } from '../../redux/store';
+import { getPlaceReviewData } from '../../redux/country-page-reducer';
 import ImageContainer from './ImageContainer';
 import ImageRating from './ImageRating';
+import Spinner from './spinner/Spinner';
+
+type MapStateToPropsType = {
+  placeReviewsData: any
+};
+
+type MapDispatchToPropsType = {
+  getPlaceReviewData: (id: string) => Promise<void>,
+};
 
 interface PhotosProps {
-  countryId: string
-  imgUrls: any
+  allPlaces: any
+  lang: string
 }
 
-const Photos:React.FC<PhotosProps> = ({ imgUrls, countryId }: PhotosProps) => {
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & PhotosProps;
+
+const Photos:React.FC<PropsType> = ({
+  allPlaces,
+  getPlaceReviewData,
+  placeReviewsData,
+  lang,
+}: PropsType) => {
   const [activeImage, setActiveImage] = useState<number>(0);
+
+  useEffect(() => {
+    if (allPlaces) {
+      // eslint-disable-next-line no-underscore-dangle
+      getPlaceReviewData(allPlaces[activeImage]._id);
+    }
+  }, []);
 
   const handle = useFullScreenHandle();
 
@@ -19,7 +45,7 @@ const Photos:React.FC<PhotosProps> = ({ imgUrls, countryId }: PhotosProps) => {
   };
 
   const rightControlHandler = () => {
-    if (activeImage < (imgUrls.length - 1)) {
+    if (activeImage < (allPlaces.length - 1)) {
       setActiveImage(activeImage + 1);
     }
   };
@@ -40,98 +66,79 @@ const Photos:React.FC<PhotosProps> = ({ imgUrls, countryId }: PhotosProps) => {
   const imageClases = ['active-image'];
   const mainImageClasses = ['main-img'];
   const descriptionClasses = ['description'];
+  const rateClasses = ['rating-main'];
 
   if (handle.active) {
     wrapperClasses.push('photos-wrapper-fullscreen');
     imageClases.push('active-image-fullscreen');
     mainImageClasses.push('main-img-fullscreen');
     descriptionClasses.push('description-fullscreen');
+    rateClasses.push('description-fullscreen');
   }
 
-  const reviews = [
-    {
-      _id: '604e61239dbcdb49fcc5681b', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 4.181271732963752, reviewText: 'пример измененного отзыва# 27.039989280740873',
-    },
-    {
-      _id: '604e612a9dbcdb49fcc5681d', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 61.344600528342475',
-    },
-    {
-      _id: '604e6141cf754b4aa43047ec', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 92.13171813319731',
-    },
-    {
-      _id: '604e614ccf754b4aa43047ee', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 47.862405272795925',
-    },
-    {
-      _id: '604e633bcf754b4aa43047f0', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 62.825461464243794',
-    },
-    {
-      _id: '604e637fcf754b4aa43047f2', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 99.44716265198676',
-    },
-    {
-      _id: '604e6d9dd9b36d0015b08ea7', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 59.23662745347302',
-    },
-    {
-      _id: '604e6df66aba2300157d9fc9', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 10.799722679660873',
-    },
-    {
-      _id: '6051066df45eac0015d2fe8c', placeId: '604d396dbedd6044c481b2d6', userLogin: 'test2', rating: 6, reviewText: 'пример отзыва# 60.17363490988315',
-    },
-  ];
+  if (allPlaces) {
+    const localisations = allPlaces[activeImage].localizations;
+    const localisation = localisations.find((elem: any) => elem.lang === lang);
 
-  return (
-    <>
-      <FullScreen handle={handle}>
-        <div className={wrapperClasses.join(' ')}>
-          <div className={imageClases.join(' ')}>
-            <div
-              onClick={rightControlHandler}
-              onKeyPress={rightControlHandler}
-              role="presentation"
-              className="consrol-right"
-            >
-              &gt;
-            </div>
-            <div
-              className="consrol-left"
-              onClick={leftControlHandler}
-              onKeyPress={leftControlHandler}
-              role="presentation"
-            >
-              &lt;
-            </div>
-            <div style={{ position: 'relative' }}>
-              <TransitionGroup>
-                <CSSTransition
-                  key={imgUrls[activeImage].imgUrl}
-                  timeout={{ enter: 500 }}
-                  classNames="fade"
-                >
-                  <ImageContainer handler={fullScreenHandler} classes={mainImageClasses.join(' ')} url={imgUrls[activeImage].imgUrl} />
-                </CSSTransition>
-              </TransitionGroup>
-            </div>
-          </div>
-          <ImageRating placeReview={reviews} classes={descriptionClasses.join(' ')} rating={imgUrls[activeImage].rating} comments={23} />
-          <div className={descriptionClasses.join(' ')}>
-            {countryId}
-            {imgUrls[activeImage].description}
-          </div>
-          <div className="thumbs">
-            {imgUrls.map((i: { imgUrl: string | undefined; }, ind: number) => (
-              <img
-                onClick={() => activeImgHandler(ind)}
-                onKeyPress={() => activeImgHandler(ind)}
+    return (
+      <>
+        <FullScreen handle={handle}>
+          <div className={wrapperClasses.join(' ')}>
+            <div className={imageClases.join(' ')}>
+              <div
+                onClick={rightControlHandler}
+                onKeyPress={rightControlHandler}
                 role="presentation"
-                className={ind === activeImage ? 'thumb-img-active' : 'thumb-img'}
-                src={i.imgUrl}
-                alt="thumb-img"
-              />
-            ))}
+                className="consrol-right"
+              >
+                &gt;
+              </div>
+              <div
+                className="consrol-left"
+                onClick={leftControlHandler}
+                onKeyPress={leftControlHandler}
+                role="presentation"
+              >
+                &lt;
+              </div>
+              <div style={{ position: 'relative' }}>
+                <TransitionGroup>
+                  <CSSTransition
+                    key={allPlaces[activeImage].photoUrl}
+                    timeout={{ enter: 500 }}
+                    classNames="fade"
+                  >
+                    <ImageContainer handler={fullScreenHandler} classes={mainImageClasses.join(' ')} url={allPlaces[activeImage].photoUrl} />
+                  </CSSTransition>
+                </TransitionGroup>
+              </div>
+            </div>
+            <ImageRating placeReview={placeReviewsData} classes={rateClasses.join(' ')} rating={5} comments={23} />
+            <div className={descriptionClasses.join(' ')}>
+              {localisation.description}
+            </div>
+            <div className="thumbs">
+              {allPlaces.map((i: any, ind: number) => (
+                <img
+                  onClick={() => activeImgHandler(ind)}
+                  onKeyPress={() => activeImgHandler(ind)}
+                  role="presentation"
+                  className={ind === activeImage ? 'thumb-img-active' : 'thumb-img'}
+                  src={i.photoUrl}
+                  alt="thumb-img"
+                />
+              ))}
+            </div>
           </div>
-        </div>
-      </FullScreen>
-    </>
-  );
+        </FullScreen>
+      </>
+    );
+  }
+  return <Spinner />;
 };
 
-export default Photos;
+const mapStateToProps = (state: AppStateType) => ({
+  placeReviewsData: state.places.placeReviewsData,
+});
+
+export default connect(mapStateToProps, { getPlaceReviewData })(Photos);

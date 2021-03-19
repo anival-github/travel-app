@@ -50,44 +50,45 @@ const ImageRating:React.FC<RatingProps> = ({
     modalClasses.push('visible');
   } else { ratingClasses.push('visible'); }
 
-  return (
-    <>
-      <div className={modalClasses.join(' ')}>
-        <div className="places-modal">
-          <button className="close-button" onClick={() => setVisible(false)} type="button">close</button>
-          <div className="reviews">
-            {placeReview.map((item) => (
-              <ReviewItem user={item.userLogin} rating={item.rating} comment={item.reviewText} />
-            ))}
+  return placeReview
+    ? (
+      <>
+        <div className={modalClasses.join(' ')}>
+          <div className="places-modal">
+            <button className="close-button" onClick={() => setVisible(false)} type="button">close</button>
+            <div className="reviews">
+              { placeReview ? placeReview.map((item) => (
+                <ReviewItem user={item.userLogin} rating={item.rating} comment={item.reviewText} />
+              )) : <span>loading</span>}
+            </div>
+            <div className="add-review">
+              <form>
+                <label htmlFor="text">
+                  Отзыв
+                  <input onChange={(e) => handleText(e)} value={text} type="text" name="text" />
+                </label>
+                <label htmlFor="rate">
+                  Оценка
+                  <input onChange={(e) => handleRate(e)} value={rate} type="range" name="rate" min="0" max="10" />
+                  {rate}
+                </label>
+                <button type="button" onClick={() => handleSubmit()}>Отправить</button>
+              </form>
+            </div>
           </div>
-          <div className="add-review">
-            <form>
-              <label htmlFor="text">
-                Отзыв
-                <input onChange={(e) => handleText(e)} value={text} type="text" name="text" />
-              </label>
-              <label htmlFor="rate">
-                Оценка
-                <input onChange={(e) => handleRate(e)} value={rate} type="range" name="rate" min="0" max="10" />
-                {rate}
-              </label>
-              <button type="button" onClick={() => handleSubmit()}>Отправить</button>
-            </form>
+        </div>
+        <div onClick={() => setVisible(true)} role="presentation" className={ratingClasses.join(' ')}>
+          <div className="rating">
+            <span className={classes}>{rating}</span>
+            <img className="rating-img" src={star} alt="rating star" />
+          </div>
+          <div className="comments">
+            <span className={classes}>{comments}</span>
+            <img className="rating-img" src={coment} alt="rating coment" />
           </div>
         </div>
-      </div>
-      <div onClick={() => setVisible(true)} role="presentation" className={ratingClasses.join(' ')}>
-        <div className="rating">
-          <span className={classes}>{rating}</span>
-          <img className="rating-img" src={star} alt="rating star" />
-        </div>
-        <div className="comments">
-          <span className={classes}>{comments}</span>
-          <img className="rating-img" src={coment} alt="rating coment" />
-        </div>
-      </div>
-    </>
-
-  );
+      </>
+    )
+    : <div> loading</div>;
 };
 export default ImageRating;
