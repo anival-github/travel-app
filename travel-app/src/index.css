@@ -148,6 +148,10 @@ code {
   height: 80vh;
 }
 
+.description {
+  width: 600px;
+}
+
 .description-fullscreen {
  color: #fff;
 }

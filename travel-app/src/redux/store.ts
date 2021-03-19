@@ -8,6 +8,7 @@ import countriesReducer from './countries-reducer';
 import searchReducer from './search-reducer';
 import widgetsReducer from './widgets-reducer';
 import { UserStateReduser } from './reducers/UserStateReduser';
+import countryPlacesReducer from './country-page-reducer';
 import localisationReducer from './localisation-reducer';
 
 export const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ export const rootReducer = combineReducers({
   localisation: localisationReducer,
 
   userState: UserStateReduser,
+  places: countryPlacesReducer,
 });
 
 type RootReducerType = typeof rootReducer;
