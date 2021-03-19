@@ -9,6 +9,7 @@ import searchReducer from './search-reducer';
 import widgetsReducer from './widgets-reducer';
 import { UserStateReduser } from './reducers/UserStateReduser';
 import countryPlacesReducer from './country-page-reducer';
+import localisationReducer from './localisation-reducer';
 
 export const rootReducer = combineReducers({
   app: appReducer,
@@ -16,6 +17,7 @@ export const rootReducer = combineReducers({
 
   countries: countriesReducer,
   search: searchReducer,
+  localisation: localisationReducer,
 
   userState: UserStateReduser,
   places: countryPlacesReducer,

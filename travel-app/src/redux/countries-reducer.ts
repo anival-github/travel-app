@@ -4,14 +4,18 @@ import { getAllCountries } from '../api/ServerAPI/Countries';
 import { AppStateType } from './store';
 
 const SET_ALL_COUNTRIES_DATA = 'travel-app/countries/SET_ALL_COUNTRIES_DATA';
+const SET_CURRENT_COUNTRY = 'travel-app/countries/SET_CURRENT_COUNTRY';
+
+type CountryesISOCodesType = 'BLR' | 'RUS' | 'FR' | 'SPN' | 'GBR' | 'NL' | 'UA' | 'IT';
 
 const InitialState = {
   allCountriesData: null as any,
+  currentCountryISOCode: null as null | CountryesISOCodesType,
 };
 
 type InitialStateType = typeof InitialState;
 
-type ActionsType = SetAllCountriesDataType;
+type ActionsType = SetAllCountriesDataType | SetCurrentCountryType;
 
 const countriesReducer = (state = InitialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
@@ -19,6 +23,11 @@ const countriesReducer = (state = InitialState, action: ActionsType): InitialSta
       return {
         ...state,
         allCountriesData: action.data,
+      };
+    case SET_CURRENT_COUNTRY:
+      return {
+        ...state,
+        currentCountryISOCode: action.ISOCode,
       };
     default:
       return state;
@@ -44,5 +53,15 @@ export const getAllCoutriesData = (): ThunkType => async (
   const data = await getAllCountries();
   dispatch(setAllCountriesData(data));
 };
+
+export type SetCurrentCountryType = {
+  type: typeof SET_CURRENT_COUNTRY,
+  ISOCode: CountryesISOCodesType,
+};
+
+export const setCurrentCountryType = (ISOCode: CountryesISOCodesType) => ({
+  type: SET_CURRENT_COUNTRY,
+  ISOCode,
+});
 
 export default countriesReducer;

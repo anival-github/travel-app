@@ -1,33 +1,35 @@
-const TEST_VARIABLE = 'travel-app/app/TEST_VARIABLE';
+const SET_IS_COUNTRYPAGE_OPENED = 'travel-app/app/DEFINE_IS_COUNTRYPAGE_OPENED';
 
 const InitialState = {
-  test: 'testData',
+  isCountryPageOpened: false,
 };
 
 type InitialStateType = typeof InitialState;
 
-type ActionsType = TestActionCreatorType;
+type ActionsType = SetIsCountryPageOpenedType;
 
 const appReducer = (state = InitialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
-    case TEST_VARIABLE:
+    case SET_IS_COUNTRYPAGE_OPENED:
       return {
         ...state,
-        test: action.test,
+        isCountryPageOpened: action.isCountryPageOpened,
       };
     default:
       return state;
   }
 };
 
-type TestActionCreatorType = {
-  type: typeof TEST_VARIABLE,
-  test: string,
+export type SetIsCountryPageOpenedType = {
+  type: typeof SET_IS_COUNTRYPAGE_OPENED,
+  isCountryPageOpened: boolean,
 };
 
-export const testActionCreator = (): TestActionCreatorType => ({
-  type: TEST_VARIABLE,
-  test: 'newTestData',
+export const setIsCountryPageOpened = (
+  isCountryPageOpened: boolean,
+): SetIsCountryPageOpenedType => ({
+  type: SET_IS_COUNTRYPAGE_OPENED,
+  isCountryPageOpened,
 });
 
 export default appReducer;

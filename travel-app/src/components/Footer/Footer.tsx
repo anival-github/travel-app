@@ -9,7 +9,7 @@ const Footer: React.FC = () => (
         <li><a href="https://github.com/thrvrce">thrvrce</a></li>
         <li><a href="https://github.com/DittmerOk">DittmerOk</a></li>
       </ul>
-      <div>made in 2021</div>
+      <div>2021</div>
       <a href="https://rs.school/js/"><img src="https://rs.school/images/rs_school_js.svg" width="80" height="80" alt="Logokurs" /></a>
     </div>
   </footer>

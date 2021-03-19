@@ -1,12 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useEffect } from 'react';
 import { Container, Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 import { getAllCoutriesData } from '../../redux/countries-reducer';
-import CountryCard from './CountryCard';
-import compareCountry from '../../helpers/compareCountry';
+import { ButtonsLocalisationType, LanguageType } from '../../redux/localisation-reducer';
 import Cards from './Cards';
+import { SetIsCountryPageOpenedType, setIsCountryPageOpened } from '../../redux/app-reducer';
 
 type MapStateToPropsType = {
   allCountriesData: any,
@@ -15,19 +14,33 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
   getAllCoutriesData: () => Promise<void>,
+  setIsCountryPageOpened: (isCountryPageOpened: boolean) => SetIsCountryPageOpenedType,
 };
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType;
+type OwnTypes = {
+  currentLanguage: LanguageType,
+  currentButtonsLocalosation: ButtonsLocalisationType,
+};
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnTypes;
 
 const MainPage: React.FC<PropsType> = ({
-  searchQuery, allCountriesData, getAllCoutriesData,
+  currentLanguage, currentButtonsLocalosation, searchQuery, allCountriesData,
+  getAllCoutriesData, setIsCountryPageOpened,
 }: PropsType) => {
   useEffect(() => { getAllCoutriesData(); }, []);
+
+  setIsCountryPageOpened(false);
 
   return (
     <Container className="mainpage" maxWidth="md">
       <Grid container spacing={4}>
-        <Cards searchQuery={searchQuery} allCountriesData={allCountriesData} />
+        <Cards
+          searchQuery={searchQuery}
+          allCountriesData={allCountriesData}
+          currentLanguage={currentLanguage}
+          currentButtonsLocalosation={currentButtonsLocalosation}
+        />
       </Grid>
     </Container>
   );
@@ -38,4 +51,7 @@ const mapStateToProps = (state: AppStateType) => ({
   searchQuery: state.search.searchQuery,
 });
 
-export default connect(mapStateToProps, { getAllCoutriesData })(MainPage);
+export default connect(
+  mapStateToProps,
+  { getAllCoutriesData, setIsCountryPageOpened },
+)(MainPage);
