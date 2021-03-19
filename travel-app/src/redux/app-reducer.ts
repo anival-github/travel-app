@@ -1,36 +1,35 @@
-const TEST = 'travel-app/app/TEST';
-
-export type LanguageType = 'ru-RU' | 'en-US' | 'de-DE';
+const SET_IS_COUNTRYPAGE_OPENED = 'travel-app/app/DEFINE_IS_COUNTRYPAGE_OPENED';
 
 const InitialState = {
-  languagesAvailable: ['ru-RU', 'en-US', 'de-DE'] as Array<LanguageType>,
-  currentLanguage: 'ru-RU' as LanguageType,
+  isCountryPageOpened: false,
 };
 
 type InitialStateType = typeof InitialState;
 
-type ActionsType = SetCurrentLanguageType;
+type ActionsType = SetIsCountryPageOpenedType;
 
 const appReducer = (state = InitialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
-    case TEST:
+    case SET_IS_COUNTRYPAGE_OPENED:
       return {
         ...state,
-        currentLanguage: action.language,
+        isCountryPageOpened: action.isCountryPageOpened,
       };
     default:
       return state;
   }
 };
 
-type SetCurrentLanguageType = {
-  type: typeof TEST,
-  language: LanguageType,
+export type SetIsCountryPageOpenedType = {
+  type: typeof SET_IS_COUNTRYPAGE_OPENED,
+  isCountryPageOpened: boolean,
 };
 
-export const test = (language: LanguageType): SetCurrentLanguageType => ({
-  type: TEST,
-  language,
+export const setIsCountryPageOpened = (
+  isCountryPageOpened: boolean,
+): SetIsCountryPageOpenedType => ({
+  type: SET_IS_COUNTRYPAGE_OPENED,
+  isCountryPageOpened,
 });
 
 export default appReducer;

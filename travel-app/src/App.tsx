@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { connect, useDispatch } from 'react-redux';
+
+import { userCheckSession } from './redux/reducers/UserStateReduser';
+import { ButtonsLocalisationType, LanguageType } from './redux/localisation-reducer';
+import { AppStateType } from './redux/store';
+
 import CountryPage from './components/CountryPage';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import MainPage from './components/MainPage';
 import Signup from './components/Authorization/Signup';
 import Login from './components/Authorization/Login';
-import { userCheckSession } from './redux/reducers/UserStateReduser';
-import { LanguageType } from './redux/app-reducer';
-import { ButtonsLocalisationType } from './redux/localisation-reducer';
-import { AppStateType } from './redux/store';
+
 // import APIqueriesExample from './api/ServerAPI/APIQueriesExample';
 
 // APIqueriesExample();// функция для демонстрации работы Server API функций.

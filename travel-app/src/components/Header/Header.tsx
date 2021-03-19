@@ -18,6 +18,7 @@ import User from '../Authorization/User';
 type MapStateToPropsType = {
   currentLanguage: LanguageType,
   languagesAvailable: Array<LanguageType>,
+  isCountryPageOpened: boolean,
 };
 
 type MapDispatchToPropsType = {
@@ -31,7 +32,8 @@ type OwnPropsType = {
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
 
 const Header: React.FC<PropsType> = ({
-  languagesAvailable, currentLanguage, currentButtonsLocalosation, setCurrentLanguage,
+  languagesAvailable, currentLanguage, currentButtonsLocalosation,
+  isCountryPageOpened, setCurrentLanguage,
 }: PropsType) => {
   const userState = useTypedSelector((state) => state.userState);
 
@@ -47,7 +49,10 @@ const Header: React.FC<PropsType> = ({
           <Typography variant="h6">
             <NavLink to="/">Travel app</NavLink>
           </Typography>
-          <SearchForm buttonsNames={buttonsNames} />
+          {
+            !isCountryPageOpened
+            && <SearchForm buttonsNames={buttonsNames} />
+          }
           <Box mr={3}>
             {userState.isLoged
               ? (
@@ -79,6 +84,7 @@ const Header: React.FC<PropsType> = ({
 const MapStateToProps = (state: AppStateType) => ({
   currentLanguage: state.localisation.currentLanguage,
   languagesAvailable: state.localisation.languagesAvailable,
+  isCountryPageOpened: state.app.isCountryPageOpened,
 });
 
 export default connect(MapStateToProps, { setCurrentLanguage })(Header);

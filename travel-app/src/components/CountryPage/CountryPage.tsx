@@ -2,14 +2,17 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
+
 import { getAllCoutriesData } from '../../redux/countries-reducer';
+import { LanguageType } from '../../redux/localisation-reducer';
+
 import CountryVideo from './CountryVideo';
 import MainInfo from './MainInfo';
 import MapComponent from './MapComponent';
 import Photos from './Photos';
 import WidgetsContainer from './Widgets/WidgetsContainer';
 import Spinner from './spinner/Spinner';
-import { LanguageType } from '../../redux/localisation-reducer';
+import { SetIsCountryPageOpenedType, setIsCountryPageOpened } from '../../redux/app-reducer';
 
 const imgUrls = [
   { imgUrl: 'https://gls-space.ams3.digitaloceanspaces.com/lbcms-container-cz_excursions_resale/08a1eb18-e094-11ea-8545-baa2e45fb9df.webp', description: 'Description of photo', rating: 5 },
@@ -25,6 +28,7 @@ type MapStateToPropsType = {
 
 type MapDispatchToPropsType = {
   getAllCoutriesData: () => Promise<void>,
+  setIsCountryPageOpened: (isCountryPageOpened: boolean) => SetIsCountryPageOpenedType,
 };
 
 type OwnProps = {
@@ -33,9 +37,11 @@ type OwnProps = {
 
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps;
 
-const CountryPage:React.FC<PropsType> = ({
-  currentLanguage, allCountriesData, getAllCoutriesData,
+const CountryPage: React.FC<PropsType> = ({
+  currentLanguage, allCountriesData, getAllCoutriesData, setIsCountryPageOpened,
 }: PropsType) => {
+  setIsCountryPageOpened(true);
+
   useEffect(() => {
     if (!allCountriesData) {
       console.log('useEffect');
@@ -80,4 +86,7 @@ const mapStateToProps = (state: AppStateType) => ({
   allCountriesData: state.countries.allCountriesData,
 });
 
-export default connect(mapStateToProps, { getAllCoutriesData })(CountryPage);
+export default connect(
+  mapStateToProps,
+  { getAllCoutriesData, setIsCountryPageOpened },
+)(CountryPage);
