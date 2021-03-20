@@ -41,7 +41,7 @@ const App: React.FC<PropsType> = ({
   }
 
   return (
-    <div>
+    <div className="PageContentWrapper">
       <BrowserRouter>
         <Header
           currentButtonsLocalosation={currentButtonsLocalosation}

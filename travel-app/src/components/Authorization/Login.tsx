@@ -1,5 +1,5 @@
 import React, {
-  FC, CSSProperties, useRef,
+  FC, useRef,
 } from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
@@ -13,15 +13,12 @@ import { userLogin } from '../../redux/reducers/UserStateReduser';
 
 const Login: FC = () => {
   const userState = useTypedSelector((state) => state.userState);
-  const styleCss: CSSProperties = {
-    marginTop: '100px',
-    height: '100%',
-  };
+
   const dispatch = useDispatch();
   const form = useRef<HTMLFormElement>(null);
   return (
 
-    <div style={styleCss}>
+    <div>
       {userState.isLoged && <Redirect to="/" /> }
       <form
         ref={form}
