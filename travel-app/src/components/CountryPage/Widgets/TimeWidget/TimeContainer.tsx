@@ -15,7 +15,7 @@ const TimeContainer: React.FC<PropsType> = ({
 }: PropsType) => {
   const [date, setDate] = useState(new Date());
 
-  const { timeZone } = currentCountryData;
+  const { timeZone, ISOCode } = currentCountryData;
 
   const dataOptions = {
     timeZone,
@@ -28,7 +28,13 @@ const TimeContainer: React.FC<PropsType> = ({
     second: '2-digit' as '2-digit',
   };
 
-  const dataString = date.toLocaleString(currentLanguage, dataOptions);
+  let dataString = date.toLocaleString(currentLanguage, dataOptions);
+
+  if (ISOCode === 'BLR') {
+    dataString = dataString.replace('Москва', 'Минск');
+    dataString = dataString.replace('Moscow', 'Minsk');
+    dataString = dataString.replace('Moskauer', 'Minsk');
+  }
 
   useEffect(() => {
     const timerId = setInterval(
