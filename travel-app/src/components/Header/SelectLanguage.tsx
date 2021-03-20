@@ -4,7 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { ButtonsType, LanguageType, SetCurrentLanguageType } from '../../redux/localisation-reducer';
+import { ButtonsType, LanguageType } from '../../redux/localisation-reducer';
 
 const useStyles = makeStyles(() => createStyles({
   formControl: {
@@ -18,7 +18,7 @@ type MapStateToPropsType = {
 };
 
 type MapDispatchToPropsType = {
-  setCurrentLanguage: (language: LanguageType) => SetCurrentLanguageType,
+  changeLanguage: (language: LanguageType) => Promise<void>,
 };
 
 type OwnProps = {
@@ -28,13 +28,13 @@ type OwnProps = {
 type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps;
 
 const SelectLanguage: React.FC<PropsType> = ({
-  buttonsNames, languagesAvailable, currentLanguage, setCurrentLanguage,
+  buttonsNames, languagesAvailable, currentLanguage, changeLanguage,
 }: PropsType) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setCurrentLanguage(event.target.value as LanguageType);
+    changeLanguage(event.target.value as LanguageType);
   };
 
   const handleClose = () => {
@@ -48,7 +48,7 @@ const SelectLanguage: React.FC<PropsType> = ({
   const menuItems = languagesAvailable.map(
     (langСode) => {
       const lang = langСode.split('-')[0];
-      return <MenuItem value={langСode}>{lang}</MenuItem>;
+      return <MenuItem key={langСode} value={langСode}>{lang}</MenuItem>;
     },
   );
 

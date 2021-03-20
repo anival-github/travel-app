@@ -10,7 +10,7 @@ import SelectLanguage from './SelectLanguage';
 
 import { AppStateType } from '../../redux/store';
 import {
-  setCurrentLanguage, LanguageType, SetCurrentLanguageType, ButtonsLocalisationType,
+  changeLanguage, LanguageType, ButtonsLocalisationType,
 } from '../../redux/localisation-reducer';
 
 import User from '../Authorization/User';
@@ -19,25 +19,22 @@ type MapStateToPropsType = {
   currentLanguage: LanguageType,
   languagesAvailable: Array<LanguageType>,
   isCountryPageOpened: boolean,
+  currentButtonsLocalisation: ButtonsLocalisationType,
 };
 
 type MapDispatchToPropsType = {
-  setCurrentLanguage: (language: LanguageType) => SetCurrentLanguageType,
+  changeLanguage: (language: LanguageType) => Promise<void>,
 };
 
-type OwnPropsType = {
-  currentButtonsLocalosation: ButtonsLocalisationType,
-};
-
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType;
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const Header: React.FC<PropsType> = ({
-  languagesAvailable, currentLanguage, currentButtonsLocalosation,
-  isCountryPageOpened, setCurrentLanguage,
+  languagesAvailable, currentLanguage, currentButtonsLocalisation,
+  isCountryPageOpened, changeLanguage,
 }: PropsType) => {
   // const userState = useTypedSelector((state) => state.userState);
 
-  const buttonsNames = currentButtonsLocalosation.buttons;
+  const buttonsNames = currentButtonsLocalisation.buttons;
 
   // const { logIn, signUp } = buttonsNames;
 
@@ -80,7 +77,7 @@ const Header: React.FC<PropsType> = ({
           <SelectLanguage
             languagesAvailable={languagesAvailable}
             currentLanguage={currentLanguage}
-            setCurrentLanguage={setCurrentLanguage}
+            changeLanguage={changeLanguage}
             buttonsNames={buttonsNames}
           />
           <User buttonsNames={currentButtonsLocalosation} />
@@ -95,6 +92,7 @@ const MapStateToProps = (state: AppStateType) => ({
   currentLanguage: state.localisation.currentLanguage,
   languagesAvailable: state.localisation.languagesAvailable,
   isCountryPageOpened: state.app.isCountryPageOpened,
+  currentButtonsLocalisation: state.localisation.currentButtonsLocalisation,
 });
 
-export default connect(MapStateToProps, { setCurrentLanguage })(Header);
+export default connect(MapStateToProps, { changeLanguage })(Header);

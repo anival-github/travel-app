@@ -5,16 +5,20 @@ import {
 import Button from '@material-ui/core/Button';
 import { NavLink } from 'react-router-dom';
 import { ButtonsType } from '../../redux/localisation-reducer';
+import { CountriesISOCodesType } from '../../redux/countries-reducer';
 
 type PropsType = {
-  ISOCode: string,
+  ISOCode: CountriesISOCodesType,
   imageUrl: string,
   countryName: string,
   buttonsNames: ButtonsType,
 };
 
 const CountryCard: React.FC<PropsType> = ({
-  ISOCode, imageUrl, countryName, buttonsNames,
+  ISOCode,
+  imageUrl,
+  countryName,
+  buttonsNames,
 }: PropsType) => {
   const [isRaised, setIsRaised] = useState(false);
 
