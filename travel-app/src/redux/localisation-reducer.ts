@@ -77,12 +77,12 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
     lang: 'de-DE',
     buttons: {
       findCoutry: 'Аinde ein land',
-      logIn: 'Log in',
-      signUp: 'Sign up',
+      logIn: 'Anmelden',
+      signUp: 'Registrierung',
       language: 'sprachen',
       view: 'Aussicht',
 
-      logout: 'Logout',
+      logout: 'Ausloggen',
       close: 'Hinausgehen',
       userMenu: 'Speisekarte',
 
