@@ -12,11 +12,17 @@ export type ButtonsType = {
   signUp: string,
   language: string,
   view: string,
+
+  logout: string;
+  close: string;
+  userMenu: string;
+
   currency: string,
   exchangeRates: string,
   temperature: string,
   weatherDescription: string,
   humidity: string,
+
 };
 
 export type ButtonsLocalisationType = {
@@ -33,11 +39,17 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Зарегистрироваться',
       language: 'язык',
       view: 'Подробнее',
+
+      logout: 'Выход',
+      close: 'Закрыть',
+      userMenu: 'Меню',
+
       currency: 'Местная валюта',
       exchangeRates: 'Курс обмена',
       temperature: 'Температура',
       weatherDescription: 'Описание',
       humidity: 'Влажность',
+
     },
   },
   {
@@ -48,11 +60,17 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Sign up',
       language: 'language',
       view: 'View',
+
+      logout: 'Logout',
+      close: 'Close',
+      userMenu: 'Menu',
+
       currency: 'Currency',
       exchangeRates: 'Exchange rates',
       temperature: 'Temperature',
       weatherDescription: 'Description',
       humidity: 'Humidity',
+
     },
   },
   {
@@ -63,11 +81,17 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Sign up',
       language: 'sprachen',
       view: 'Aussicht',
+
+      logout: 'Logout',
+      close: 'Hinausgehen',
+      userMenu: 'Speisekarte',
+
       currency: 'Währung',
       exchangeRates: 'Wechselkurse',
       temperature: 'Temperatur',
       weatherDescription: 'Beschreibung',
       humidity: 'Luftfeuchtigkeit',
+
     },
   },
 ];
