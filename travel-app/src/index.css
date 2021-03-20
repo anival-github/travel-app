@@ -1,3 +1,7 @@
+*{
+  margin: 0;
+  padding: 0%;
+}
 body {
   margin: 0;
   background-color: rgb(200, 188, 255);
@@ -345,9 +349,9 @@ code {
   text-decoration: none;
   display: block;
   color: #000;
-  height: 100px;
+  /* height: 100px; */
   text-align: center;
-  line-height: 100px;
+  /* line-height: 100px; */
   position: relative;
   overflow: hidden;
 }
