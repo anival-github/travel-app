@@ -1,10 +1,5 @@
-import React, {
-  Fragment, useState,
-} from 'react';
-
-import {
-  Button, Avatar,
-} from '@material-ui/core';
+import React, { Fragment, useState } from 'react';
+import { Button, Avatar } from '@material-ui/core';
 
 export default function SetAvatar() {
   async function setAvatarhandler(e:any, calllback: Function) {
