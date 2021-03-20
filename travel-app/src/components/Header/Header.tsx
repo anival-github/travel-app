@@ -80,7 +80,7 @@ const Header: React.FC<PropsType> = ({
             changeLanguage={changeLanguage}
             buttonsNames={buttonsNames}
           />
-          <User buttonsNames={currentButtonsLocalosation} />
+          <User buttonsNames={currentButtonsLocalisation} />
         </Toolbar>
       </Container>
     </AppBar>
