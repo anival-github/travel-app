@@ -4,7 +4,7 @@ type PropsType = {
   dataString: string,
 };
 
-const TimeWidget: React.FC<PropsType> = ({ dataString }:PropsType) => (
+const Time: React.FC<PropsType> = ({ dataString }:PropsType) => (
   <div>
     <div>
       {dataString}
@@ -12,4 +12,4 @@ const TimeWidget: React.FC<PropsType> = ({ dataString }:PropsType) => (
   </div>
 );
 
-export default TimeWidget;
+export default Time;

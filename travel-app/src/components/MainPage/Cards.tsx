@@ -5,14 +5,12 @@ import CountryCard from './CountryCard';
 import compareCountry from '../../helpers/compareCountry';
 import { ButtonsLocalisationType, LanguageType } from '../../redux/localisation-reducer';
 
-type MapStateToPropsType = {
+type PropsType = {
   allCountriesData: any,
   searchQuery: string,
   currentLanguage: LanguageType,
-  currentButtonsLocalosation: ButtonsLocalisationType,
+  currentButtonsLocalisation: ButtonsLocalisationType,
 };
-
-type PropsType = MapStateToPropsType;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,11 +22,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Cards: React.FC<PropsType> = ({
-  searchQuery, allCountriesData, currentLanguage, currentButtonsLocalosation,
+  searchQuery,
+  allCountriesData,
+  currentLanguage,
+  currentButtonsLocalisation,
 }: PropsType) => {
   const classes = useStyles();
 
-  const buttonsNames = currentButtonsLocalosation.buttons;
+  const buttonsNames = currentButtonsLocalisation.buttons;
 
   const cards = allCountriesData
     && allCountriesData.reduce((acc: any, country: any) => {
