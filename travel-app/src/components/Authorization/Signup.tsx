@@ -1,5 +1,5 @@
 import React, {
-  FC, CSSProperties, useRef, useState,
+  FC, useRef, useState,
 } from 'react';
 import TextField from '@material-ui/core/TextField';
 import {
@@ -22,16 +22,12 @@ async function setAvatarhandler(e:any, calllback: Function) {
 
 const Signup: FC = () => {
   const userState = useTypedSelector((state) => state.userState);
-  const styleCss: CSSProperties = {
-    marginTop: '100px',
-    height: '100%',
-  };
   const [avatarSrc, setavatarSrc] = useState('');
   const dispatch = useDispatch();
   const form = useRef<HTMLFormElement>(null);
   return (
 
-    <div style={styleCss}>
+    <div>
       {userState.isLoged && <Redirect to="/" /> }
       <form
         ref={form}
