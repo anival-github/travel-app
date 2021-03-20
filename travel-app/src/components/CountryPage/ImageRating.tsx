@@ -117,8 +117,10 @@ const ImageRating:React.FC<PropsType> = ({
                   <input onChange={(e) => handleRate(e)} value={rate} type="range" name="rate" min="0" max="10" />
                   {rate}
                 </label>
-                <button type="button" onClick={() => handleSubmit()}>{editing ? 'Сохранить' : 'Отправить'}</button>
-                <button className="close-button" onClick={() => setVisible(false)} type="button">закрыть</button>
+                <div>
+                  <button type="button" onClick={() => handleSubmit()}>{editing ? 'Сохранить' : 'Отправить'}</button>
+                  <button className="close-button" onClick={() => setVisible(false)} type="button">закрыть</button>
+                </div>
               </form>
             </div>
           </div>
