@@ -370,7 +370,9 @@ button:focus {
 .cardmedia{
    padding-top: 56%;
 }
-
+footer{
+  background-color: #3f51b5;
+}
 .footer__container {
   display: flex;
   justify-content: space-around;
@@ -384,10 +386,11 @@ button:focus {
 }
 
 .footer__container-link a{
-  padding-right: 5px;
+  padding-right: 10px;
   text-decoration: none;
-  display: block;
-  color: #000;
+  display: flex;
+  align-items: center;
+  color: white;
   /* height: 100px; */
   text-align: center;
   /* line-height: 100px; */
@@ -395,6 +398,9 @@ button:focus {
   overflow: hidden;
 }
 
+.footer__container div{
+  color: white;
+}
 .footer__container-link a:hover{
 color: #0B07E2;
 }
@@ -576,7 +582,7 @@ a {
 
  }
 
- @media screen and (max-width: 420px) {
+ @media screen and (max-width: 620px) {
   .footer__container-link {
     flex-direction: column;
   }
