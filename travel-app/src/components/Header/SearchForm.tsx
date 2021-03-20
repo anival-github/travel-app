@@ -32,19 +32,23 @@ const SearchForm: React.FC<PropsType> = ({
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
       autoFocus
+      color="secondary"
     />
-    <IconButton
-      aria-label="delete"
-      onClick={() => setSearchQuery(searchQuery)}
-    >
-      <SearchIcon />
-    </IconButton>
-    <IconButton
-      aria-label="delete"
-      onClick={() => setSearchQuery('')}
-    >
-      <ClearIcon />
-    </IconButton>
+    <div>
+
+      <IconButton
+        aria-label="delete"
+        onClick={() => setSearchQuery(searchQuery)}
+      >
+        <SearchIcon style={{ color: 'white' }} />
+      </IconButton>
+      <IconButton
+        aria-label="delete"
+        onClick={() => setSearchQuery('')}
+      >
+        <ClearIcon style={{ color: 'white' }} />
+      </IconButton>
+    </div>
   </form>
 );
 
