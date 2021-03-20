@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import CredentialsForm from './Common/Form';
 import TextInputFields from './Common/TextInputFields';
-import TextInputs from './Types';
+import TextInputs from './Common/Types';
 import { userLogin } from '../../redux/reducers/UserStateReduser';
 
 const arrOfTextInputs: TextInputs[] = [

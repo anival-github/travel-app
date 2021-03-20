@@ -40,16 +40,19 @@ function CredentialsForm({
             dispatch(action(formdata));
           }
         }}
+        style={{ maxWidth: '350px', margin: '0 auto' }}
       >
         <Grid container direction="column" justify="center" alignItems="center">
-          {userState.queryStatus.isSuccessful
-            ? (
-              <Alert severity="info">{`Enter ${formName.toLowerCase()}data`}</Alert>
-            )
-            : <Alert severity="warning">{warning}</Alert>}
+          {
+            userState.queryStatus.isSuccessful
+              ? (
+                <Alert severity="info">{`Enter ${formName.toLowerCase()} data`}</Alert>
+              )
+              : <Alert severity="warning">{warning}</Alert>
+          }
           {children}
           {userState.queryStatus.isPending && <LinearProgress /> }
-          <Grid container direction="row" justify="center" alignItems="center" style={{ marginTop: '10px' }}>
+          <Grid container direction="row" justify="space-evenly" alignItems="center" style={{ margin: '10px' }}>
             {userState.queryStatus.isPending && <LinearProgress /> }
             <Button
               variant="contained"

@@ -3,7 +3,7 @@ import { userRegistration } from '../../redux/reducers/UserStateReduser';
 import SetAvatar from './Common/SetAvatar';
 import CredentialsForm from './Common/Form';
 import TextInputFields from './Common/TextInputFields';
-import TextInputs from './Types';
+import TextInputs from './Common/Types';
 
 const arrOfTextInputs: TextInputs[] = [
   { name: 'name', required: false },

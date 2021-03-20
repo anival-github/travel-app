@@ -1,6 +1,6 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import TextInputs from '../Types';
+import TextInputs from './Types';
 
 type Props = {
   arrOfTextInputs: TextInputs[];
