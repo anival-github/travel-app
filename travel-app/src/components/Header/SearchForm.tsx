@@ -24,7 +24,7 @@ type PropsType = MapStateToPropsType & MapDispatchToProps & OwnProps;
 const SearchForm: React.FC<PropsType> = ({
   buttonsNames, searchQuery, setSearchQuery,
 }: PropsType) => (
-  <form noValidate autoComplete="off">
+  <form noValidate autoComplete="off" style={{ display: 'flex', alignItems: 'center' }}>
     <TextField
       id="outlined-basic"
       label={buttonsNames.findCoutry}

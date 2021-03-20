@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  AppBar, Container, Toolbar, Typography, Box,
+  AppBar, Container, Toolbar, Typography,
 } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+
 import { connect } from 'react-redux';
 import SearchForm from './SearchForm';
 import SelectLanguage from './SelectLanguage';
-import useTypedSelector from '../../redux/reducers/hooks/useTypedSelector';
+
 import { AppStateType } from '../../redux/store';
 import {
   setCurrentLanguage, LanguageType, SetCurrentLanguageType, ButtonsLocalisationType,
@@ -35,17 +35,26 @@ const Header: React.FC<PropsType> = ({
   languagesAvailable, currentLanguage, currentButtonsLocalosation,
   isCountryPageOpened, setCurrentLanguage,
 }: PropsType) => {
-  const userState = useTypedSelector((state) => state.userState);
+  // const userState = useTypedSelector((state) => state.userState);
 
   const buttonsNames = currentButtonsLocalosation.buttons;
 
-  const { logIn, signUp } = buttonsNames;
+  // const { logIn, signUp } = buttonsNames;
 
   return (
 
     <AppBar position="sticky">
       <Container fixed>
-        <Toolbar className="header">
+        <Toolbar
+          className="header"
+          // style={{
+          //   display: 'flex',
+          //   justifyContent: 'space-between',
+          //   alignItems: 'center',
+          //   flexFlow: 'row wrap',
+          //   padding: '0',
+          // }}
+        >
           <Typography variant="h6">
             <NavLink to="/">Travel app</NavLink>
           </Typography>
@@ -53,7 +62,7 @@ const Header: React.FC<PropsType> = ({
             !isCountryPageOpened
             && <SearchForm buttonsNames={buttonsNames} />
           }
-          <Box mr={3}>
+          {/* <Box mr={3}>
             {userState.isLoged
               ? (
                 <User
@@ -67,13 +76,14 @@ const Header: React.FC<PropsType> = ({
                   <Button color="secondary" variant="contained" href="/signup">{signUp}</Button>
                 </>
               )}
-          </Box>
+          </Box> */}
           <SelectLanguage
             languagesAvailable={languagesAvailable}
             currentLanguage={currentLanguage}
             setCurrentLanguage={setCurrentLanguage}
             buttonsNames={buttonsNames}
           />
+          <User buttonsNames={currentButtonsLocalosation} />
         </Toolbar>
       </Container>
     </AppBar>

@@ -8,6 +8,9 @@ export type ButtonsType = {
   signUp: string,
   language: string,
   view: string,
+  logout: string;
+  close: string;
+  userMenu: string;
 };
 
 export type ButtonsLocalisationType = {
@@ -24,6 +27,9 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Зарегистрироваться',
       language: 'язык',
       view: 'Подробнее',
+      logout: 'Выход',
+      close: 'Закрыть',
+      userMenu: 'Меню',
     },
   },
   {
@@ -34,6 +40,9 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Sign up',
       language: 'language',
       view: 'View',
+      logout: 'Logout',
+      close: 'Close',
+      userMenu: 'Menu',
     },
   },
   {
@@ -44,6 +53,9 @@ const buttonsLocalisations: Array<ButtonsLocalisationType> = [
       signUp: 'Sign up',
       language: 'sprachen',
       view: 'Aussicht',
+      logout: 'Logout',
+      close: 'Hinausgehen',
+      userMenu: 'Speisekarte',
     },
   },
 ];

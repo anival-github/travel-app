@@ -262,8 +262,8 @@ code {
   background-color: rgb(173, 173, 173);
 }
 
-button, 
-button:active, 
+button,
+button:active,
 button:focus {
     outline: none;
     cursor: pointer;
@@ -355,9 +355,9 @@ button:focus {
 }
 
 .header {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-flow: row wrap;
+  padding: 0;
 }
 
 .mainpage{
@@ -541,7 +541,11 @@ a {
     width: 95vw;
   }
  }
-
+ @media screen and (max-width: 493px) {
+  .header {
+    justify-content: center;
+  }
+ }
  @media screen and (max-width: 500px) {
   .places-modal {
     width: 95vw;
@@ -575,4 +579,6 @@ a {
   }
  }
 
-
+.UserMenuItemRef{
+  color: black
+}
