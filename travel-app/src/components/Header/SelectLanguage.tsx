@@ -54,8 +54,9 @@ const SelectLanguage: React.FC<PropsType> = ({
 
   return (
     <FormControl className={classes.formControl}>
-      <InputLabel id="demo-controlled-open-select-label">
+      <InputLabel id="demo-controlled-open-select-label" style={{ color: 'white' }}>
         {buttonsNames.language}
+
       </InputLabel>
       <Select
         labelId="demo-controlled-open-select-label"
@@ -65,6 +66,7 @@ const SelectLanguage: React.FC<PropsType> = ({
         onOpen={handleOpen}
         value={currentLanguage}
         onChange={handleChange}
+        style={{ color: 'white' }}
       >
         {menuItems}
       </Select>

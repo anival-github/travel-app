@@ -358,9 +358,9 @@ button:focus {
 }
 
 .header {
-  display: flex;
   justify-content: space-between;
-  align-items: center;
+  flex-flow: row wrap;
+  padding: 0;
 }
 
 .mainpage{
@@ -549,7 +549,11 @@ a {
     width: 95vw;
   }
  }
-
+ @media screen and (max-width: 493px) {
+  .header {
+    justify-content: center;
+  }
+ }
  @media screen and (max-width: 500px) {
   .places-modal {
     width: 95vw;
@@ -582,3 +586,9 @@ a {
     font-size: 10px;
   }
  }
+
+
+.UserMenuItemRef{
+  color: black
+}
+
