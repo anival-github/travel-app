@@ -10,6 +10,8 @@ import { SetIsCountryPageOpenedType, setIsCountryPageOpened } from '../../redux/
 type MapStateToPropsType = {
   allCountriesData: any,
   searchQuery: string,
+  currentButtonsLocalisation: ButtonsLocalisationType,
+  currentLanguage: LanguageType,
 };
 
 type MapDispatchToPropsType = {
@@ -17,16 +19,15 @@ type MapDispatchToPropsType = {
   setIsCountryPageOpened: (isCountryPageOpened: boolean) => SetIsCountryPageOpenedType,
 };
 
-type OwnTypes = {
-  currentLanguage: LanguageType,
-  currentButtonsLocalosation: ButtonsLocalisationType,
-};
-
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnTypes;
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const MainPage: React.FC<PropsType> = ({
-  currentLanguage, currentButtonsLocalosation, searchQuery, allCountriesData,
-  getAllCoutriesData, setIsCountryPageOpened,
+  currentLanguage,
+  currentButtonsLocalisation,
+  searchQuery,
+  allCountriesData,
+  getAllCoutriesData,
+  setIsCountryPageOpened,
 }: PropsType) => {
   useEffect(() => { getAllCoutriesData(); }, []);
 
@@ -39,7 +40,7 @@ const MainPage: React.FC<PropsType> = ({
           searchQuery={searchQuery}
           allCountriesData={allCountriesData}
           currentLanguage={currentLanguage}
-          currentButtonsLocalosation={currentButtonsLocalosation}
+          currentButtonsLocalisation={currentButtonsLocalisation}
         />
       </Grid>
     </Container>
@@ -49,9 +50,14 @@ const MainPage: React.FC<PropsType> = ({
 const mapStateToProps = (state: AppStateType) => ({
   allCountriesData: state.countries.allCountriesData,
   searchQuery: state.search.searchQuery,
+  currentButtonsLocalisation: state.localisation.currentButtonsLocalisation,
+  currentLanguage: state.localisation.currentLanguage,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllCoutriesData, setIsCountryPageOpened },
+  {
+    getAllCoutriesData,
+    setIsCountryPageOpened,
+  },
 )(MainPage);

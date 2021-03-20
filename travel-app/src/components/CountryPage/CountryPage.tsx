@@ -3,7 +3,9 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppStateType } from '../../redux/store';
 
-import { getAllCoutriesData } from '../../redux/countries-reducer';
+import {
+  CountriesISOCodesType, getAllCoutriesData, chooseCountry,
+} from '../../redux/countries-reducer';
 import { getAllPlacesData } from '../../redux/country-page-reducer';
 import { LanguageType } from '../../redux/localisation-reducer';
 
@@ -16,6 +18,7 @@ import Spinner from './spinner/Spinner';
 import { SetIsCountryPageOpenedType, setIsCountryPageOpened } from '../../redux/app-reducer';
 
 type MapStateToPropsType = {
+  currentLanguage: LanguageType,
   allCountriesData: any,
   allPlacesData: any
 };
@@ -24,13 +27,10 @@ type MapDispatchToPropsType = {
   getAllCoutriesData: () => Promise<void>,
   getAllPlacesData: (IsoCode: string) => Promise<void>,
   setIsCountryPageOpened: (isCountryPageOpened: boolean) => SetIsCountryPageOpenedType,
+  chooseCountry: (ISOCode: CountriesISOCodesType) => Promise<void>,
 };
 
-type OwnProps = {
-  currentLanguage: LanguageType,
-};
-
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps;
+type PropsType = MapStateToPropsType & MapDispatchToPropsType;
 
 const CountryPage: React.FC<PropsType> = ({
   currentLanguage,
@@ -39,6 +39,7 @@ const CountryPage: React.FC<PropsType> = ({
   setIsCountryPageOpened,
   allPlacesData,
   getAllPlacesData,
+  chooseCountry,
 }: PropsType) => {
   setIsCountryPageOpened(true);
 
@@ -49,6 +50,12 @@ const CountryPage: React.FC<PropsType> = ({
   }, []);
 
   const { ISOCode } = useParams<any>();
+
+  if (allCountriesData) {
+    chooseCountry(ISOCode);
+  }
+
+  console.log(allCountriesData);
 
   useEffect(() => {
     getAllPlacesData(ISOCode);
@@ -86,9 +93,15 @@ const CountryPage: React.FC<PropsType> = ({
 const mapStateToProps = (state: AppStateType) => ({
   allCountriesData: state.countries.allCountriesData,
   allPlacesData: state.places.allPlacesData,
+  currentLanguage: state.localisation.currentLanguage,
 });
 
 export default connect(
   mapStateToProps,
-  { getAllCoutriesData, setIsCountryPageOpened, getAllPlacesData },
+  {
+    getAllCoutriesData,
+    setIsCountryPageOpened,
+    getAllPlacesData,
+    chooseCountry,
+  },
 )(CountryPage);
