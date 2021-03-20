@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -30,6 +30,17 @@ type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnProps;
 const SelectLanguage: React.FC<PropsType> = ({
   buttonsNames, languagesAvailable, currentLanguage, changeLanguage,
 }: PropsType) => {
+  useEffect(() => {
+    const lang = localStorage.getItem('lang');
+    if (lang) {
+      changeLanguage(lang as LanguageType);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('lang', currentLanguage);
+  }, [currentLanguage]);
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
