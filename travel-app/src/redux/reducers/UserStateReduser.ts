@@ -109,17 +109,21 @@ function userRegistration(registrationData: FormData) {
   };
 }
 
-function userLogin(LoginCredentials: LoginCredentials) {
+function userLogin(LoginCredentialsForm: FormData) {
   return async (dispatch: Dispatch<UserStateActions>):Promise<void> => {
     dispatch(setPendingStatusAction({
       isPending: true,
       isSuccessful: true,
     }));
+    const loginCredentials: LoginCredentials = {
+      login: LoginCredentialsForm.get('login') as string || '',
+      password: LoginCredentialsForm.get('password') as string || '',
+    };
     const {
       authorizationStatus,
       token,
       user,
-    }:AuthorizationResult = await authorizeViaLogin(LoginCredentials);
+    }:AuthorizationResult = await authorizeViaLogin(loginCredentials);
     if (authorizationStatus) {
       dispatch(setUserStateAction({
         user,
