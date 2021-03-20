@@ -3,6 +3,7 @@ import { ThunkAction } from 'redux-thunk';
 import currencyAPI from '../api/currency-api';
 import weatherAPI from '../api/weather-api';
 import { CurrencyType } from '../types/currency-types';
+import { LanguageType } from './localisation-reducer';
 import { AppStateType } from './store';
 
 const SET_WEATHER_DATA = 'travel-app/widgets/SET_WEATHER_DATA';
@@ -45,13 +46,14 @@ export const setWeatherData = (data: any): SetWeatherDataType => ({
   data,
 });
 
-type DispatchType = Dispatch <ActionsType>;
+type DispatchType = Dispatch<ActionsType>;
 export type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>;
 
-export const getWeather = (city: string): ThunkType => async (
-  dispatch: DispatchType,
-): Promise<void> => {
-  const data = await weatherAPI.getWeather(city);
+export const getWeather = (
+  city: string,
+  currentLanguage: LanguageType,
+): ThunkType => async (dispatch): Promise<void> => {
+  const data = await weatherAPI.getWeather(city, currentLanguage);
   dispatch(setWeatherData(data));
 };
 

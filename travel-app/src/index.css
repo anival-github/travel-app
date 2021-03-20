@@ -34,8 +34,7 @@ code {
 .widgets-wrapper {
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
 }
 
 .map-container {
@@ -246,7 +245,11 @@ code {
   height: 300px;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
+}
+
+.weather-icon {
+  font-size: 40px !important;
 }
 
 .remove-review img {
@@ -267,8 +270,8 @@ code {
   background-color: rgb(173, 173, 173);
 }
 
-button, 
-button:active, 
+button,
+button:active,
 button:focus {
     outline: none;
     cursor: pointer;
@@ -512,4 +515,9 @@ a {
   50% {
     transform: scale(1.5);
   }
+}
+
+.widget {
+  margin: 20px;
+  width: 30%;
 }

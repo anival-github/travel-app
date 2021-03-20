@@ -48,7 +48,7 @@ const SelectLanguage: React.FC<PropsType> = ({
   const menuItems = languagesAvailable.map(
     (langСode) => {
       const lang = langСode.split('-')[0];
-      return <MenuItem value={langСode}>{lang}</MenuItem>;
+      return <MenuItem key={langСode} value={langСode}>{lang}</MenuItem>;
     },
   );
 

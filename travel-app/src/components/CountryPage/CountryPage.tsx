@@ -53,8 +53,6 @@ const CountryPage: React.FC<PropsType> = ({
     chooseCountry(ISOCode);
   }
 
-  console.log(allCountriesData);
-
   useEffect(() => {
     getAllPlacesData(ISOCode);
   }, [ISOCode]);
