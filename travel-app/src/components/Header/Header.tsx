@@ -43,7 +43,7 @@ const Header: React.FC<PropsType> = ({
 
   return (
 
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Container fixed>
         <Toolbar className="header">
           <Typography variant="h6">

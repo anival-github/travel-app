@@ -6,8 +6,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
 }
-
+.PageContentWrapper{
+  min-height: 100vh;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-between;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
