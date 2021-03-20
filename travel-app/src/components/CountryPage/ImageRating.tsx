@@ -1,27 +1,37 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { AppStateType } from '../../redux/store';
 import star from '../../assets/icons/star.png';
 import coment from '../../assets/icons/speech-bubble.png';
 import ReviewItem from './ReviewItem';
+import { editPlaceReviewData } from '../../redux/country-page-reducer';
 
-interface RatingProps {
-  rating: number
-  comments: number
+type RatingProps = {
+  addReview(data: any, token: string): void
+  placeId: string
   classes: string
-  placeReview: {
-    _id: string;
-    placeId: string;
-    userLogin: string;
-    rating: number;
-    reviewText: string;
-  }[]
-}
+  user: any,
+  placeReview: any
+};
 
-const ImageRating:React.FC<RatingProps> = ({
-  rating, comments, classes, placeReview,
-}: RatingProps) => {
+type MapStateToPropsType = {
+  placeReview: any
+};
+
+type MapDispatchToPropsType = {
+  editPlaceReviewData: (data: any) => Promise<void>,
+};
+
+type PropsType = RatingProps & MapStateToPropsType & MapDispatchToPropsType;
+
+const ImageRating:React.FC<PropsType> = ({
+  classes, placeReview, user, addReview, placeId, editPlaceReviewData,
+}: PropsType) => {
   const [visible, setVisible] = useState(false);
   const [text, setText] = useState('');
   const [rate, setRate] = useState(0);
+  const [editing, setEditing] = useState(false);
+  const [editingId, setEditingId] = useState(0);
 
   const handleText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setText(event.target.value);
@@ -31,16 +41,43 @@ const ImageRating:React.FC<RatingProps> = ({
     setRate(parseInt(event.target.value, 10));
   };
 
+  const averageRating = Array.isArray(placeReview)
+    ? placeReview.reduce((acc: number, item: any) => acc + item.rating,
+      0) : 0;
+
   const handleSubmit = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const data = {
-      placeId: placeReview[0].placeId,
-      userLogin: 'User',
-      rating: rate,
-      reviewText: text,
-    };
-    setText('');
-    setVisible(false);
+    if (editing) {
+      const data = {
+      // eslint-disable-next-line no-underscore-dangle
+        reviewId: placeReview[editingId]._id,
+        updateFields: {
+          rating: rate,
+          reviewText: text,
+        },
+        token: user.token,
+      };
+      editPlaceReviewData(data);
+      setText('');
+      setRate(0);
+      setEditing(false);
+    } else {
+      const data = {
+        placeId,
+        userLogin: user.user ? user.user.login : 'anonymous',
+        rating: rate,
+        reviewText: text,
+      };
+      addReview(data, user.token);
+      setText('');
+      setVisible(false);
+    }
+  };
+
+  const editReviewHandler = (id: number) => {
+    setText(placeReview[id].reviewText);
+    setRate(placeReview[id].rating);
+    setEditingId(id);
+    setEditing(true);
   };
 
   const modalClasses = ['modal-wrapper'];
@@ -55,11 +92,19 @@ const ImageRating:React.FC<RatingProps> = ({
       <>
         <div className={modalClasses.join(' ')}>
           <div className="places-modal">
-            <button className="close-button" onClick={() => setVisible(false)} type="button">close</button>
             <div className="reviews">
-              { placeReview ? placeReview.map((item) => (
-                <ReviewItem user={item.userLogin} rating={item.rating} comment={item.reviewText} />
-              )) : <span>loading</span>}
+              { placeReview.length > 0 ? placeReview.map((item: any, index: number) => (
+                <ReviewItem
+                  // eslint-disable-next-line no-underscore-dangle
+                  id={item._id}
+                  index={index}
+                  editReview={editReviewHandler}
+                  user={item.userLogin}
+                  rating={item.rating}
+                  key={item.rating + item.reviewText}
+                  comment={item.reviewText}
+                />
+              )) : <span style={{ margin: '0 10px' }}>no data</span>}
             </div>
             <div className="add-review">
               <form>
@@ -72,18 +117,23 @@ const ImageRating:React.FC<RatingProps> = ({
                   <input onChange={(e) => handleRate(e)} value={rate} type="range" name="rate" min="0" max="10" />
                   {rate}
                 </label>
-                <button type="button" onClick={() => handleSubmit()}>Отправить</button>
+                <button type="button" onClick={() => handleSubmit()}>{editing ? 'Сохранить' : 'Отправить'}</button>
+                <button className="close-button" onClick={() => setVisible(false)} type="button">закрыть</button>
               </form>
             </div>
           </div>
         </div>
         <div onClick={() => setVisible(true)} role="presentation" className={ratingClasses.join(' ')}>
           <div className="rating">
-            <span className={classes}>{rating}</span>
+            <span className={classes}>
+              {placeReview.length > 0
+                ? (Math.round((averageRating / placeReview.length) * 10) / 10)
+                : 0}
+            </span>
             <img className="rating-img" src={star} alt="rating star" />
           </div>
           <div className="comments">
-            <span className={classes}>{comments}</span>
+            <span className={classes}>{placeReview.length}</span>
             <img className="rating-img" src={coment} alt="rating coment" />
           </div>
         </div>
@@ -91,4 +141,9 @@ const ImageRating:React.FC<RatingProps> = ({
     )
     : <div> loading</div>;
 };
-export default ImageRating;
+
+const mapStateToProps = (state: AppStateType) => ({
+  placeReview: state.places.placeReviewsData,
+});
+
+export default connect(mapStateToProps, { editPlaceReviewData })(ImageRating);

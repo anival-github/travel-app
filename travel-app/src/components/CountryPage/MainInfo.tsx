@@ -10,11 +10,11 @@ type PropsType = {
 const MainInfo:React.FC<PropsType> = ({
   imgUrl, name, capital, description,
 }: PropsType) => (
-  <div>
-    {name}
-    {capital}
-    {description}
-    {imgUrl}
+  <div className="main-info">
+    <span>{name}</span>
+    <span>{capital}</span>
+    <span>{description}</span>
+    <span>{imgUrl}</span>
   </div>
 );
 

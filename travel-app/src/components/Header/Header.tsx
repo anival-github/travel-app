@@ -63,7 +63,7 @@ const Header: React.FC<PropsType> = ({
               )
               : (
                 <>
-                  <Button color="inherit" variant="outlined">{logIn}</Button>
+                  <Button color="inherit" variant="outlined" href="/login">{logIn}</Button>
                   <Button color="secondary" variant="contained" href="/signup">{signUp}</Button>
                 </>
               )}

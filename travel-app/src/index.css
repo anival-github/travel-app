@@ -55,7 +55,6 @@ code {
   align-items: center;
   justify-content: space-around;
   width: 600px;
-  height: 500px;
 }
 
 .photos-wrapper-fullscreen {
@@ -99,9 +98,15 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 5px;
   width: 600px;
-  height: 300px;
+  height: 330px;
   transition: all .5s;
+}
+
+.main-info {
+  display: flex;
+  flex-direction: column;
 }
 
 .active-image-fullscreen {
@@ -161,6 +166,7 @@ code {
   z-index: 5;
   left: 5%;
   font-size: 35px;
+  cursor: pointer;
   color: rgb(35, 112, 212);
   font-weight: bolder;
 }
@@ -173,10 +179,15 @@ code {
 .consrol-right {
   z-index: 5;
   position: absolute;
+  cursor: pointer;
   right: 5%;
   font-size: 35px;
   color: rgb(35, 112, 212);
   font-weight: bolder;
+}
+
+.buttons {
+  width: 55px;
 }
 
 .thumbs-photo {
@@ -212,29 +223,58 @@ code {
 
 .places-modal {
   width: 500px;
-  height: 500px;
-  overflow-y: scroll;
+  height: 350px;
   background-color: #fff;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .reviews {
   display: flex;
+  overflow-y: scroll;
+  height: 300px;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: start;
+}
+
+.remove-review img {
+  width: 15px;
+}
+
+.edit-review img {
+  width: 15px;
+}
+
+.remove-review {
+  border: none;
+  background-color: rgb(173, 173, 173);
+}
+
+.edit-review {
+  border: none;
+  background-color: rgb(173, 173, 173);
+}
+
+button, 
+button:active, 
+button:focus {
+    outline: none;
+    cursor: pointer;
 }
 
 .close-button {
   background-color: rgb(97, 99, 253);
   border: none;
+  margin: 10px;
 }
 
 .rating-wrapper {
   width: 100px;
   height: 40px;
   display: none;
+  margin-top: 5px;
   background-color: rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   display: flex;
@@ -259,7 +299,7 @@ code {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .review-text{
@@ -276,11 +316,12 @@ code {
   padding: 5px;
   margin-top: 10px;
   width: 100%;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgb(97, 99, 253);
+  background-color: rgb(170, 172, 255);
 }
 
 .rating-img{

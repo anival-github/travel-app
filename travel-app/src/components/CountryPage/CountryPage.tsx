@@ -17,7 +17,6 @@ import { SetIsCountryPageOpenedType, setIsCountryPageOpened } from '../../redux/
 
 type MapStateToPropsType = {
   allCountriesData: any,
-  allPlacesData: any
 };
 
 type MapDispatchToPropsType = {
@@ -37,7 +36,6 @@ const CountryPage: React.FC<PropsType> = ({
   allCountriesData,
   getAllCoutriesData,
   setIsCountryPageOpened,
-  allPlacesData,
   getAllPlacesData,
 }: PropsType) => {
   setIsCountryPageOpened(true);
@@ -68,7 +66,7 @@ const CountryPage: React.FC<PropsType> = ({
       <div className="country-page-wrapper">
         <WidgetsContainer />
         <MainInfo imgUrl={imageUrl} name={name} capital={capital} description={description} />
-        <Photos lang={currentLanguage} allPlaces={allPlacesData} />
+        <Photos lang={currentLanguage} />
         <div className="map-vs-video-container">
           <CountryVideo videoUrl={videoUrl} />
           <MapComponent
